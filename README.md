@@ -1,6 +1,6 @@
 # Solo Invoice Lite
 
-A modern, lightweight invoicing application built with React and Vite. InvoiceMate helps freelancers and small business owners manage invoices, clients, and payments efficiently with a beautiful, intuitive interface.
+A modern, lightweight invoicing application built with React and Vite. Solo Invoice Lite helps freelancers and small business owners manage invoices, clients, and payments efficiently with a beautiful, intuitive interface.
 
 ## Features
 
