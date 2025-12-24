@@ -1,0 +1,5 @@
+{
+  "name": "Solo Invoice Lite",
+  "description": "An offline-first PWA for freelancers in Malaysia to create professional invoices and receipts.",
+  "requestFramePermissions": []
+}
