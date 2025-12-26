@@ -64,7 +64,7 @@ export default function Clients() {
         </div>
         <button 
           onClick={() => { setEditingClient(null); setIsModalOpen(true); }}
-          className="bg-mate-brown text-white px-6 py-2 rounded-lg font-bold hover:bg-mate-brown/90 transition-colors flex items-center gap-2 self-start md:self-auto"
+          className="bg-[#A27B5C] text-white px-6 py-2 rounded-lg font-bold hover:bg-[#A27B5C]/90 transition-colors flex items-center gap-2 self-start md:self-auto cursor-pointer"
         >
           <Plus size={20} />
           Add Client
@@ -84,30 +84,30 @@ export default function Clients() {
 
       <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
         {clients?.map(client => (
-          <div key={client.id} className="bg-white p-6 rounded-xl border border-mate-cream shadow-sm hover:shadow-md transition-shadow group relative">
+          <div key={client.id} className="bg-white p-6 rounded-xl border border-[#DCD7C9] shadow-sm hover:shadow-md transition-shadow group relative">
             <div className="flex justify-between items-start mb-4">
-              <div className="w-12 h-12 bg-mate-forest/10 rounded-full flex items-center justify-center text-mate-forest">
+              <div className="w-12 h-12 bg-[#3F4F44]/10 rounded-full flex items-center justify-center text-mate-forest">
                 <User size={24} />
               </div>
               <div className="flex gap-2">
                 <button 
                   onClick={() => { setEditingClient(client); setIsModalOpen(true); }}
-                  className="p-2 text-mate-forest hover:bg-mate-cream rounded-lg"
+                  className="p-2 text-mate-forest hover:bg-[#DCD7C9] rounded-lg cursor-pointer"
                 >
                   <Edit2 size={16} />
                 </button>
                 <button 
                   onClick={() => client.id && deleteClient(client.id)}
-                  className="p-2 text-red-500 hover:bg-red-50 rounded-lg"
+                  className="p-2 text-red-500 hover:bg-red-50 rounded-lg cursor-pointer"
                 >
                   <Trash2 size={16} />
                 </button>
               </div>
             </div>
             <h3 className="text-lg font-bold text-mate-dark">{client.name}</h3>
-            {client.company && <p className="text-sm text-mate-brown font-medium mb-4">{client.company}</p>}
+            {client.company && <p className="text-sm text-[#A27B5C] font-medium mb-4">{client.company}</p>}
             
-            <div className="space-y-2 mt-4 text-sm text-mate-forest">
+            <div className="space-y-2 mt-4 text-sm text-[#3F4F44]">
               {client.email && (
                 <div className="flex items-center gap-2">
                   <Mail size={14} />
@@ -133,10 +133,10 @@ export default function Clients() {
           <div className="col-span-full py-20 text-center">
             <div className="bg-white/50 inline-block p-10 rounded-full mb-4">
               {/* Fix: Using the correct name for the Users icon */}
-              <Users size={64} className="text-mate-forest opacity-20 mx-auto" />
+              <Users size={64} className="text-[#3F4F44] opacity-20 mx-auto" />
             </div>
-            <h3 className="text-xl font-bold text-mate-dark">No clients found</h3>
-            <p className="text-mate-forest opacity-60">Add some clients to start invoicing!</p>
+            <h3 className="text-xl font-bold text-[#2C3930]">No clients found</h3>
+            <p className="text-[#3F4F44] opacity-60">Add some clients to start invoicing!</p>
           </div>
         )}
       </div>
@@ -144,36 +144,36 @@ export default function Clients() {
       {isModalOpen && (
         <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-2xl w-full max-w-md shadow-2xl overflow-hidden">
-            <div className="p-6 border-b border-mate-cream flex justify-between items-center bg-mate-forest text-white">
+            <div className="p-6 border-b border-[#DCD7C9] flex justify-between items-center bg-[#3F4F44] text-white">
               <h3 className="text-xl font-bold">{editingClient ? 'Edit Client' : 'Add New Client'}</h3>
-              <button onClick={() => setIsModalOpen(false)} className="hover:rotate-90 transition-transform">
+              <button onClick={() => setIsModalOpen(false)} className="hover:rotate-90 transition-transform cursor-pointer">
                 <X size={24} />
               </button>
             </div>
             <form onSubmit={handleSubmit} className="p-6 space-y-4">
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-1">Full Name *</label>
-                <input required name="name" defaultValue={editingClient?.name} className="w-full px-4 py-2 rounded-lg border border-mate-cream focus:ring-2 focus:ring-mate-brown outline-none" placeholder="Aiman Rahim" />
+                <label className="block text-sm font-bold text-[#2C3930] mb-1">Full Name *</label>
+                <input required name="name" defaultValue={editingClient?.name} className="w-full px-4 py-2 rounded-lg border border-[#DCD7C9] focus:ring-2 focus:ring-[#A27B5C] outline-none" placeholder="Safura" />
               </div>
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-1">Company (Optional)</label>
-                <input name="company" defaultValue={editingClient?.company} className="w-full px-4 py-2 rounded-lg border border-mate-cream focus:ring-2 focus:ring-mate-brown outline-none" placeholder="BeDaie" />
+                <label className="block text-sm font-bold text-[#2C3930] mb-1">Company (Optional)</label>
+                <input name="company" defaultValue={editingClient?.company} className="w-full px-4 py-2 rounded-lg border border-[#DCD7C9] focus:ring-2 focus:ring-[#A27B5C] outline-none" placeholder="XYZ Company" />
               </div>
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-1">Email Address</label>
-                <input name="email" type="email" defaultValue={editingClient?.email} className="w-full px-4 py-2 rounded-lg border border-mate-cream focus:ring-2 focus:ring-mate-brown outline-none" placeholder="aiman@example.com" />
+                <label className="block text-sm font-bold text-[#2C3930] mb-1">Email Address</label>
+                <input name="email" type="email" defaultValue={editingClient?.email} className="w-full px-4 py-2 rounded-lg border border-[#DCD7C9] focus:ring-2 focus:ring-[#A27B5C] outline-none" placeholder="safura@example.com" />
               </div>
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-1">Phone Number</label>
-                <input name="phone" defaultValue={editingClient?.phone} className="w-full px-4 py-2 rounded-lg border border-mate-cream focus:ring-2 focus:ring-mate-brown outline-none" placeholder="+60123456789" />
+                <label className="block text-sm font-bold text-[#2C3930] mb-1">Phone Number</label>
+                <input name="phone" defaultValue={editingClient?.phone} className="w-full px-4 py-2 rounded-lg border border-[#DCD7C9] focus:ring-2 focus:ring-[#A27B5C] outline-none" placeholder="+60123456789" />
               </div>
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-1">Address</label>
-                <textarea name="address" rows={3} defaultValue={editingClient?.address} className="w-full px-4 py-2 rounded-lg border border-mate-cream focus:ring-2 focus:ring-mate-brown outline-none" placeholder="Address line..." />
+                <label className="block text-sm font-bold text-[#2C3930] mb-1">Address</label>
+                <textarea name="address" rows={3} defaultValue={editingClient?.address} className="w-full px-4 py-2 rounded-lg border border-[#DCD7C9] focus:ring-2 focus:ring-[#A27B5C] outline-none" placeholder="Address line..." />
               </div>
               <div className="pt-4 flex gap-3">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 px-4 py-2 border border-mate-cream rounded-lg font-bold text-mate-dark hover:bg-mate-cream/50 transition-colors">Cancel</button>
-                <button type="submit" className="flex-1 px-4 py-2 bg-mate-forest text-white rounded-lg font-bold hover:bg-mate-dark transition-colors">
+                <button type="button" onClick={() => setIsModalOpen(false)} className="flex-1 px-4 py-2 border border-[#DCD7C9] rounded-lg font-bold text-[#2C3930] hover:bg-[#DCD7C9]/50 transition-colors cursor-pointer">Cancel</button>
+                <button type="submit" className="flex-1 px-4 py-2 bg-[#3F4F44] text-white rounded-lg font-bold hover:bg-[#2C3930] transition-colors cursor-pointer">
                   {editingClient ? 'Update' : 'Save Client'}
                 </button>
               </div>
