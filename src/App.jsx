@@ -8,8 +8,10 @@ import {
   Settings as SettingsIcon, 
   Menu, 
   X,
+  Home,
   PlusCircle
 } from 'lucide-react';
+import Welcome from './pages/Welcome';
 import Dashboard from './pages/Dashboard';
 import Invoices from './pages/Invoices';
 import Clients from './pages/Clients';
@@ -26,7 +28,8 @@ import ReceiptDetail from './pages/ReceiptDetail';
 const Sidebar = ({ isOpen, toggle }) => {
   const location = useLocation();
   const navItems = [
-    { name: 'Dashboard', icon: LayoutDashboard, path: '/' },
+    { name:'Welcome', icon: Home, path:'/'},
+    { name: 'Dashboard', icon: LayoutDashboard, path: '/dashboard' },
     { name: 'Invoices', icon: FileText, path: '/invoices' },
     { name: 'Clients', icon: Users, path: '/clients' },
     { name: 'Settings', icon: SettingsIcon, path: '/settings' },
@@ -51,7 +54,7 @@ const Sidebar = ({ isOpen, toggle }) => {
           <h1 className="text-2xl font-bold text-[#2C3930] flex items-center gap-2">
             Solo Invoice
           </h1>
-          <button onClick={toggle} className="lg:hidden border rounded-full p-1 text-[#2C3930] hover:bg-[#E2E8F0]">
+          <button onClick={toggle} className="lg:hidden border rounded-full p-1 text-[#2C3930] hover:bg-[#E2E8F0] cursor-pointer">
             <X size={20} />
           </button>
         </div>
@@ -83,7 +86,7 @@ const Sidebar = ({ isOpen, toggle }) => {
 const Header = ({ toggleSidebar }) => {
   return (
     <header className="sticky top-0 z-10 bg-white/80 backdrop-blur-md border-b border-[#DCD7C9] p-4 flex items-center justify-between lg:hidden">
-      <button onClick={toggleSidebar} className="p-2 text-[#2C3930]">
+      <button onClick={toggleSidebar} className="p-2 text-[#2C3930] cursor-pointer">
         <Menu size={24} />
       </button>
       <span className="font-bold text-lg text-[#2C3930]">Solo Invoice</span>
@@ -95,6 +98,20 @@ const Header = ({ toggleSidebar }) => {
 const AppContent = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
   const toggleSidebar = () => setIsSidebarOpen(!isSidebarOpen);
+  const location = useLocation();
+  
+  // Determine if we are on the landing/welcome page
+  const isLandingPage = location.pathname === '/';
+
+  if (isLandingPage) {
+    return (
+      <main className="min-h-screen">
+        <Routes>
+          <Route path="/" element={<Welcome />} />
+        </Routes>
+      </main>
+    );
+  }
 
   return (
     <div className="min-h-screen flex flex-col lg:flex-row">
@@ -103,7 +120,7 @@ const AppContent = () => {
         <Header toggleSidebar={toggleSidebar} />
         <div className="max-w-6xl mx-auto mt-4 lg:mt-0">
           <Routes>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/invoices" element={<Invoices />} />
             <Route path="/invoices/new" element={<InvoiceForm />} />
             <Route path="/invoices/edit/:id" element={<InvoiceForm />} />
