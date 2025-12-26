@@ -220,7 +220,7 @@ export default function InvoiceForm() {
           </div>
           <div className="flex flex-col gap-2 w-full md:w-auto">
             {!hasBusinessProfile && (
-              <Link to="/settings" className="flex items-center justify-center gap-2 bg-mate-forest text-white px-6 py-2.5 rounded-xl font-bold hover:bg-mate-dark transition-all text-sm whitespace-nowrap shadow-lg">
+              <Link to="/settings" className="flex items-center justify-center gap-2 bg-[#3F4F44] text-white px-6 py-2.5 rounded-xl font-bold hover:bg-mate-dark transition-all text-sm whitespace-nowrap shadow-lg">
                 <SettingsIcon size={18} /> Setup Business Profile
               </Link>
             )}
@@ -254,13 +254,13 @@ export default function InvoiceForm() {
         <div className="flex bg-white p-1 rounded-xl border border-mate-cream lg:hidden shadow-sm">
           <button 
             onClick={() => setShowPreview(false)}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all ${!showPreview ? 'bg-mate-forest text-white' : 'text-mate-forest hover:bg-mate-cream/30'}`}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all ${!showPreview ? 'bg-[#3F4F44] text-white' : 'text-mate-forest hover:bg-mate-cream/30'}`}
           >
             <Edit3 size={16} /> Edit
           </button>
           <button 
             onClick={() => setShowPreview(true)}
-            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all ${showPreview ? 'bg-mate-forest text-white' : 'text-mate-forest hover:bg-mate-cream/30'}`}
+            className={`flex-1 flex items-center justify-center gap-2 px-4 py-2 rounded-lg font-bold text-sm transition-all ${showPreview ? 'bg-[#3F4F44] text-white' : 'text-mate-forest hover:bg-mate-cream/30'}`}
           >
             <Eye size={16} /> Preview
           </button>
@@ -304,7 +304,7 @@ export default function InvoiceForm() {
           <div className="bg-white rounded-2xl border border-mate-cream shadow-sm overflow-hidden">
             <div className="p-5 bg-mate-cream/40 border-b border-mate-cream flex justify-between items-center">
               <h3 className="font-extrabold text-mate-forest uppercase text-sm tracking-widest">Billing Summary</h3>
-              <button type="button" onClick={addItem} className="bg-mate-forest text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 hover:bg-mate-dark transition-all shadow-md active:scale-95">
+              <button type="button" onClick={addItem} className="bg-[#3F4F44] text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 hover:bg-mate-dark transition-all shadow-md active:scale-95">
                 <Plus size={16} /> Add Row
               </button>
             </div>
@@ -383,7 +383,7 @@ export default function InvoiceForm() {
              <button 
                 type="submit" 
                 disabled={isSaving}
-                className="flex-1 bg-mate-forest text-white py-4 rounded-xl font-black text-xl hover:bg-mate-dark transition-all flex items-center justify-center gap-3 shadow-xl shadow-mate-forest/20 disabled:opacity-70 active:scale-95"
+                className="flex-1 bg-[#3F4F44] text-white py-4 rounded-xl font-black text-xl hover:bg-mate-dark transition-all flex items-center justify-center gap-3 shadow-xl shadow-mate-forest/20 disabled:opacity-70 active:scale-95"
               >
                 {isSaving ? <Loader2 className="animate-spin" /> : <Save size={24} />}
                 {isEditing ? 'Save Changes' : 'Generate & Share'}
@@ -393,7 +393,7 @@ export default function InvoiceForm() {
 
         <div className={`lg:col-span-5 sticky top-8 space-y-6 ${!showPreview ? 'hidden lg:block' : 'block'}`}>
           <div className="bg-white rounded-4xl border-2 border-mate-forest/10 shadow-2xl overflow-hidden flex flex-col min-h-160">
-            <div className="h-4 bg-mate-forest w-full" />
+            <div className="h-4 bg-[#3F4F44] w-full" />
             <div className="p-8 flex-1 flex flex-col">
               <div className="flex justify-between items-start mb-10">
                 <div className="flex items-center gap-4">
@@ -437,7 +437,7 @@ export default function InvoiceForm() {
                 </div>
               </div>
             </div>
-            <div className="p-4 bg-mate-forest text-white/50 text-[10px] font-black text-center uppercase tracking-[0.2em]">Preview Mode</div>
+            <div className="p-4 bg-[#3F4F44] text-white/50 text-[10px] font-black text-center uppercase tracking-[0.2em]">Preview Mode</div>
           </div>
         </div>
       </div>

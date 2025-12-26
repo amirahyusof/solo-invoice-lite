@@ -260,7 +260,7 @@ export default function Settings() {
         <button 
           type="submit" 
           disabled={isSaving}
-          className="w-full bg-mate-forest text-white py-5 rounded-4xl font-black text-xl hover:bg-mate-dark transition-all flex items-center justify-center gap-3 shadow-2xl shadow-mate-forest/30 active:scale-[0.98] disabled:opacity-70"
+          className="w-full bg-[#3F4F44] text-white py-5 rounded-4xl font-black text-xl hover:bg-mate-dark transition-all flex items-center justify-center gap-3 shadow-2xl shadow-mate-forest/30 active:scale-[0.98] disabled:opacity-70"
         >
           {isSaving ? <Loader2 className="animate-spin" /> : <Save size={24} />}
           Persist Business Settings

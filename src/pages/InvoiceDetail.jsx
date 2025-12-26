@@ -102,7 +102,7 @@ export default function InvoiceDetail() {
               <Edit size={18} /> Edit
             </Link>
           )}
-          <button onClick={handleDownloadPDF} className="px-4 py-2 bg-mate-forest text-white rounded-lg font-bold flex items-center gap-2 hover:bg-mate-dark transition-colors">
+          <button onClick={handleDownloadPDF} className="px-4 py-2 bg-[#3F4F44] text-white rounded-lg font-bold flex items-center gap-2 hover:bg-mate-dark transition-colors">
             <Download size={18} /> PDF
           </button>
           {invoice.status !== 'paid' && (
@@ -121,7 +121,7 @@ export default function InvoiceDetail() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2 space-y-6">
           <div className="bg-white border border-mate-cream shadow-xl rounded-2xl overflow-hidden min-h-150 flex flex-col">
-            <div className="h-4 bg-mate-forest w-full" />
+            <div className="h-4 bg-[#3F4F44] w-full" />
             <div className="p-8 md:p-12 flex-1">
               <div className="flex flex-col md:flex-row justify-between mb-12">
                 <div className="flex items-start gap-4">

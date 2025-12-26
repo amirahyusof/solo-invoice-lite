@@ -37,7 +37,7 @@ export default function ReceiptDetail() {
           </div>
         </div>
         <div className="flex gap-2">
-          <button onClick={handleDownloadPDF} className="px-4 py-2 bg-mate-forest text-white rounded-lg font-bold flex items-center gap-2 hover:bg-mate-dark transition-colors">
+          <button onClick={handleDownloadPDF} className="px-4 py-2 bg-[#3F4F44] text-white rounded-lg font-bold flex items-center gap-2 hover:bg-mate-dark transition-colors">
             <Download size={18} /> Download PDF
           </button>
         </div>
