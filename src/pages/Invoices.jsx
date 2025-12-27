@@ -6,12 +6,8 @@ import {
   Plus, 
   Search, 
   Filter, 
-  MoreHorizontal, 
-  Download, 
-  ExternalLink, 
   Eye,
   Trash2,
-  AlertTriangle,
   FileText
 } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
@@ -73,20 +69,20 @@ export default function Invoices() {
         </div>
         <Link 
           to="/invoices/new" 
-          className="bg-mate-brown text-white px-6 py-2 rounded-lg font-bold hover:bg-mate-brown/90 transition-colors flex items-center gap-2 self-start md:self-auto"
+          className="bg-[#A27B5C] text-white px-4 py-2 rounded-lg font-bold hover:bg-[#A27B5C]/90 transition-colors flex items-center gap-2 self-start md:self-auto"
         >
           <Plus size={20} />
           Create Invoice
         </Link>
       </div>
 
-      <div className="bg-white p-4 rounded-xl border border-mate-cream shadow-sm flex flex-col md:flex-row gap-4">
+      <div className="bg-white p-4 rounded-xl border border-[#DCD7C9] shadow-sm flex flex-col md:flex-row gap-4">
         <div className="flex-1 relative">
           <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-mate-forest opacity-50" size={18} />
           <input 
             type="text" 
             placeholder="Search by invoice # or client..." 
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-mate-cream outline-none focus:ring-2 focus:ring-mate-brown/30"
+            className="w-full pl-10 pr-4 py-2 rounded-lg border border-[#DCD7C9] outline-none focus:ring-2 focus:ring-[#A27B5C]/30"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
@@ -94,7 +90,7 @@ export default function Invoices() {
         <div className="flex items-center gap-2">
           <Filter size={18} className="text-mate-forest opacity-50" />
           <select 
-            className="px-4 py-2 rounded-lg border border-mate-cream outline-none focus:ring-2 focus:ring-mate-brown/30"
+            className="px-6 py-2 rounded-lg border border-[#DCD7C9] outline-none focus:ring-2 focus:ring-[#A27B5C]/30"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -107,9 +103,9 @@ export default function Invoices() {
         </div>
       </div>
 
-      <div className="bg-white rounded-xl border border-mate-cream shadow-sm overflow-x-auto">
+      <div className="bg-white rounded-xl border border-[#DCD7C9] shadow-sm overflow-x-auto">
         <table className="w-full text-left">
-          <thead className="bg-mate-cream/30 text-mate-dark font-bold text-sm uppercase">
+          <thead className="bg-[#DCD7C9]/30 text-mate-dark font-bold text-sm uppercase">
             <tr>
               <th className="px-6 py-4">Invoice No</th>
               <th className="px-6 py-4">Client</th>
@@ -119,11 +115,11 @@ export default function Invoices() {
               <th className="px-6 py-4">Actions</th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-mate-cream">
+          <tbody className="divide-y divide-[#DCD7C9]">
             {invoices?.map(inv => (
               <tr 
                 key={inv.id} 
-                className="hover:bg-mate-cream/10 transition-colors cursor-pointer"
+                className="hover:bg-[#DCD7C9]/10 transition-colors cursor-pointer"
                 onClick={() => navigate(`/invoices/${inv.id}`)}
               >
                 <td className="px-6 py-4">
@@ -145,7 +141,7 @@ export default function Invoices() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
-                    <Link to={`/invoices/${inv.id}`} className="p-2 text-mate-forest hover:bg-mate-cream rounded-lg" title="View Detail">
+                    <Link to={`/invoices/${inv.id}`} className="p-2 text-mate-forest hover:bg-[#DCD7C9] rounded-lg" title="View Detail">
                       <Eye size={18} />
                     </Link>
                     <button 
@@ -163,7 +159,7 @@ export default function Invoices() {
         </table>
         {invoices?.length === 0 && (
           <div className="py-20 text-center">
-            <FileText size={48} className="mx-auto text-mate-cream mb-4" />
+            <FileText size={48} className="mx-auto text-[#DCD7C9] mb-4" />
             <h3 className="text-lg font-bold text-mate-dark">No invoices found</h3>
             <p className="text-sm text-mate-forest">Try a different search or create a new invoice</p>
           </div>
