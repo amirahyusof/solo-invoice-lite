@@ -64,7 +64,7 @@ export default function Welcome() {
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
               <Link 
                 to="/dashboard" 
-                className="w-full sm:w-auto flex items-center justify-center gap-3 px-10 py-5 bg-[#3F4F44] text-white rounded-4xl font-black text-xl hover:bg-[#2C3930] transition-all shadow-2xl shadow-[#3F4F44]/30 active:scale-95 group"
+                className="w-full sm:w-auto flex items-center justify-center gap-3 p-5 bg-[#3F4F44] text-white rounded-4xl font-black hover:bg-[#2C3930] transition-all shadow-2xl shadow-[#3F4F44]/30 active:scale-95 group"
               >
                 Go to Dashboard
                 <ArrowRight className="group-hover:translate-x-2 transition-transform" />
@@ -72,7 +72,7 @@ export default function Welcome() {
               {!hasSettings && (
                 <Link 
                   to="/settings" 
-                  className="w-full sm:w-auto flex items-center justify-center gap-2 px-8 py-5 bg-white border-2 border-[#3F4F44]/10 text-[#3F4F44] rounded-4xl font-black hover:bg-[#DCD7C9]/30 transition-all active:scale-95"
+                  className="w-full sm:w-auto flex items-center justify-center gap-2 p-4 bg-white border-2 border-[#3F4F44]/10 text-[#3F4F44] rounded-4xl font-black hover:bg-[#DCD7C9]/30 transition-all active:scale-95"
                 >
                   <SettingsIcon size={20} />
                   Setup Business Profile
@@ -132,7 +132,7 @@ export default function Welcome() {
           <div className="relative z-10 pt-4">
             <Link 
               to="/invoices/new" 
-              className="inline-flex items-center gap-3 px-12 py-6 bg-[#A27B5C] text-white rounded-[2.5rem] font-black text-xl hover:bg-[#A27B5C]/90 transition-all shadow-xl active:scale-95"
+              className="inline-flex items-center gap-3 p-6 bg-[#A27B5C] text-white rounded-[2.5rem] font-black text-lg hover:bg-[#A27B5C]/90 transition-all shadow-xl active:scale-95"
             >
               Create My First Invoice <ChevronRight />
             </Link>
