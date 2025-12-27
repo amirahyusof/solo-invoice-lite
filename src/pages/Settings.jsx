@@ -86,7 +86,7 @@ export default function Settings() {
   };
 
   // Enhanced input classes for readability
-  const inputClasses = "w-full px-5 py-3 rounded-2xl border-2 border-mate-forest/20 bg-white focus:ring-4 focus:ring-mate-brown/10 focus:border-mate-brown outline-none font-bold text-mate-dark transition-all placeholder:text-mate-forest/30 shadow-sm";
+  const inputClasses = "w-full px-5 py-3 rounded-2xl border-2 border-[#3F4F44]/20 bg-white focus:ring-4 focus:ring-[#A27B5C]/10 focus:border-[#A27B5C] outline-none font-bold text-mate-dark transition-all placeholder:text-[#3F4F44]/30 shadow-sm";
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
@@ -105,20 +105,20 @@ export default function Settings() {
 
       <form onSubmit={handleSubmit} className="space-y-8">
         {/* Identity Section */}
-        <div className="bg-white rounded-3xl border border-mate-cream shadow-sm overflow-hidden">
-          <div className="p-6 bg-mate-cream/20 border-b border-mate-cream flex items-center gap-3">
-            <Building2 className="text-mate-brown" size={24} />
+        <div className="bg-white rounded-3xl border border-[#DCD7C9] shadow-sm overflow-hidden">
+          <div className="p-6 bg-[#DCD7C9]/20 border-b border-[#DCD7C9] flex items-center gap-3">
+            <Building2 className="text-[#A27B5C]" size={24} />
             <h3 className="text-lg font-black text-mate-dark uppercase tracking-tight">Identity & Branding</h3>
           </div>
           <div className="p-8 space-y-8">
-            <div className="flex flex-col md:flex-row items-center gap-8 pb-8 border-b border-mate-cream/50">
+            <div className="flex flex-col md:flex-row items-center gap-8 pb-8 border-b border-[#DCD7C9]/50">
               <div className="relative group">
                 {logoBase64 ? (
                   <div className="relative">
                     <img 
                       src={logoBase64} 
                       alt="Company Logo" 
-                      className="w-40 h-40 object-contain rounded-2xl border-2 border-mate-cream bg-white p-4 shadow-inner" 
+                      className="w-40 h-40 object-contain rounded-2xl border-2 border-[#DCD7C9] bg-white p-4 shadow-inner" 
                     />
                     <button 
                       type="button" 
@@ -129,7 +129,7 @@ export default function Settings() {
                     </button>
                   </div>
                 ) : (
-                  <div className="w-40 h-40 rounded-2xl border-2 border-dashed border-mate-cream bg-white flex flex-col items-center justify-center text-mate-forest opacity-40 group-hover:bg-mate-cream/10 transition-colors">
+                  <div className="w-40 h-40 rounded-2xl border-2 border-dashed border-[#DCD7C9] bg-white flex flex-col items-center justify-center text-mate-forest opacity-40 group-hover:bg-[#DCD7C9]/10 transition-colors">
                     <ImageIcon size={48} strokeWidth={1.5} />
                     <span className="text-[10px] font-black mt-2 uppercase tracking-widest">No Logo Uploaded</span>
                   </div>
@@ -140,7 +140,7 @@ export default function Settings() {
                 <p className="text-sm text-mate-forest leading-relaxed font-medium">
                   This logo will be displayed prominently on your invoices and receipts. 
                 </p>
-                <label className="inline-flex items-center gap-2 px-6 py-2.5 bg-mate-brown text-white rounded-xl text-sm font-black cursor-pointer hover:bg-mate-brown/90 transition-all shadow-lg shadow-mate-brown/20 active:scale-95">
+                <label className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#A27B5C] text-white rounded-xl text-sm font-black cursor-pointer hover:bg-[#A27B5C]/90 transition-all shadow-lg shadow-[#A27B5C]/20 active:scale-95">
                   <Upload size={18} />
                   {logoBase64 ? 'Change Logo' : 'Upload Logo'}
                   <input type="file" accept="image/*" className="hidden" onChange={handleLogoUpload} />
@@ -150,17 +150,17 @@ export default function Settings() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
               <div className="space-y-2">
-                <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Registered Business Name</label>
+                <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Registered Business Name</label>
                 <input 
                   required 
                   name="businessName" 
                   defaultValue={settings?.businessName} 
-                  placeholder="e.g., Mirez Data Studio"
+                  placeholder="e.g., Sapura Solutions"
                   className={inputClasses} 
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-black text-mate-brown uppercase tracking-widest">SSM Number (Malaysia)</label>
+                <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">SSM Number (Malaysia)</label>
                 <input 
                   name="ssmNo" 
                   defaultValue={settings?.ssmNo} 
@@ -169,7 +169,7 @@ export default function Settings() {
                 />
               </div>
               <div className="md:col-span-2 space-y-2">
-                <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Official Address</label>
+                <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Official Address</label>
                 <textarea 
                   required 
                   name="address" 
@@ -180,7 +180,7 @@ export default function Settings() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Email Address</label>
+                <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Email Address</label>
                 <input 
                   required 
                   type="email" 
@@ -191,7 +191,7 @@ export default function Settings() {
                 />
               </div>
               <div className="space-y-2">
-                <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Contact Number</label>
+                <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Contact Number</label>
                 <input 
                   required 
                   name="phone" 
@@ -205,14 +205,14 @@ export default function Settings() {
         </div>
 
         {/* Financial Section */}
-        <div className="bg-white rounded-3xl border border-mate-cream shadow-sm overflow-hidden">
-          <div className="p-6 bg-mate-cream/20 border-b border-mate-cream flex items-center gap-3">
-            <Landmark className="text-mate-brown" size={24} />
+        <div className="bg-white rounded-3xl border border-[#DCD7C9] shadow-sm overflow-hidden">
+          <div className="p-6 bg-[#DCD7C9]/20 border-b border-[#DCD7C9] flex items-center gap-3">
+            <Landmark className="text-[#A27B5C]" size={24} />
             <h3 className="text-lg font-black text-mate-dark uppercase tracking-tight">Financial & Bank Details</h3>
           </div>
           <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
             <div className="space-y-2">
-              <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Bank Name</label>
+              <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Bank Name</label>
               <input 
                 required 
                 name="bankName" 
@@ -222,7 +222,7 @@ export default function Settings() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Account Holder Name</label>
+              <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Account Holder Name</label>
               <input 
                 required 
                 name="bankAccountName" 
@@ -231,7 +231,7 @@ export default function Settings() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Account Number</label>
+              <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Account Number</label>
               <input 
                 required 
                 name="bankAccountNo" 
@@ -240,7 +240,7 @@ export default function Settings() {
               />
             </div>
             <div className="space-y-2">
-              <label className="text-xs font-black text-mate-brown uppercase tracking-widest">Currency</label>
+              <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Currency</label>
               <div className="relative">
                 <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-mate-forest opacity-40" size={20} />
                 <select 
@@ -260,7 +260,7 @@ export default function Settings() {
         <button 
           type="submit" 
           disabled={isSaving}
-          className="w-full bg-[#3F4F44] text-white py-5 rounded-4xl font-black text-xl hover:bg-mate-dark transition-all flex items-center justify-center gap-3 shadow-2xl shadow-mate-forest/30 active:scale-[0.98] disabled:opacity-70"
+          className="w-full bg-[#3F4F44] cursor-pointer text-white py-5 rounded-4xl font-black text-xl hover:bg-[#2C3930] transition-all flex items-center justify-center gap-3 shadow-2xl shadow-[#3F4F44]/30 active:scale-[0.98] disabled:opacity-70"
         >
           {isSaving ? <Loader2 className="animate-spin" /> : <Save size={24} />}
           Persist Business Settings
