@@ -22,7 +22,7 @@ import { formatCurrency } from '../utils/formatter';
 const StatCard = ({ title, value, icon: Icon, colorClass }) => (
   <div className="bg-white p-6 rounded-xl shadow-sm border border-[#DCD7C9] flex items-start justify-between">
     <div>
-      <p className="text-sm font-medium text-mate-forest opacity-70 mb-1">{title}</p>
+      <p className="text-sm font-medium text-[#3F4F44] opacity-70 mb-1">{title}</p>
       <h3 className="text-2xl font-bold text-mate-dark">{value}</h3>
     </div>
     <div className={`p-3 rounded-lg ${colorClass}`}>
@@ -54,8 +54,8 @@ export default function Dashboard() {
     <div className="space-y-8">
       <div className="flex justify-between items-end">
         <div>
-          <h2 className="text-3xl font-bold text-mate-dark">Dashboard</h2>
-          <p className="text-mate-forest opacity-80">Welcome back, {settings?.businessName || 'Freelancer'}</p>
+          <h2 className="text-3xl font-bold text-[#2C3930]">Dashboard</h2>
+          <p className="text-[#3F4F44] opacity-80">Welcome back, {settings?.businessName || 'Freelancer'}</p>
         </div>
         <Link 
           to="/invoices/new" 
@@ -103,8 +103,8 @@ export default function Dashboard() {
             {invoices.slice(0, 5).reverse().map(inv => (
               <div key={inv.id} className="flex justify-between items-center p-3 border-b border-mate-cream last:border-0 hover:bg-mate-cream/20 rounded">
                 <div>
-                  <p className="font-semibold text-mate-dark">{inv.invoiceNo}</p>
-                  <p className="text-xs text-mate-forest">{new Date(inv.createdAt).toLocaleDateString()}</p>
+                  <p className="font-semibold text-[#2C3930]">{inv.invoiceNo}</p>
+                  <p className="text-xs text-[#3F4F44]">{new Date(inv.createdAt).toLocaleDateString()}</p>
                 </div>
                 <div className="text-right">
                   <p className="font-bold">{formatCurrency(inv.total, currency)}</p>
@@ -120,7 +120,7 @@ export default function Dashboard() {
               </div>
             ))}
             {invoices.length === 0 && (
-              <div className="py-8 text-center text-mate-forest opacity-60">
+              <div className="py-8 text-center text-[#3F4F44] opacity-60">
                 No invoices yet. Create your first one!
               </div>
             )}

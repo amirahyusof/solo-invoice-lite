@@ -202,7 +202,7 @@ export default function InvoiceForm() {
   };
 
   // Improved text input readability classes
-  const inputClasses = "w-full px-4 py-3 rounded-xl border-2 border-mate-forest/20 bg-white focus:ring-4 focus:ring-mate-brown/20 focus:border-mate-brown outline-none font-bold text-mate-dark transition-all placeholder:text-mate-forest/20 shadow-sm";
+  const inputClasses = "w-full px-4 py-3 rounded-xl border-2 border-[#3F4F44]/20 bg-white focus:ring-4 focus:ring-[#A27B5C]/20 focus:border-[#A27B5C] outline-none font-bold text-mate-dark transition-all placeholder:text-[#3F4F44]/20 shadow-sm";
 
   return (
     <div className="space-y-6 pb-20">
@@ -272,7 +272,7 @@ export default function InvoiceForm() {
           onSubmit={handleFinalSubmit} 
           className={`lg:col-span-7 space-y-6 ${showPreview ? 'hidden lg:block' : 'block'}`}
         >
-          <div className="bg-white p-7 rounded-2xl border border-mate-cream shadow-sm space-y-6">
+          <div className="bg-white p-7 rounded-2xl border border-[#DCD7C9] shadow-sm space-y-6">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-sm font-bold text-mate-dark mb-2 uppercase tracking-wide opacity-90">Select Client *</label>
@@ -287,22 +287,22 @@ export default function InvoiceForm() {
                 </select>
               </div>
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-2 uppercase tracking-wide opacity-90">Invoice No</label>
-                <input readOnly value={invoiceNo} className="w-full px-4 py-3 rounded-xl border border-mate-cream bg-mate-cream/20 outline-none text-mate-forest font-bold" />
+                <label className="block text-sm font-bold text-[#2C3930] mb-2 uppercase tracking-wide opacity-90">Invoice No</label>
+                <input readOnly value={invoiceNo} className="w-full px-4 py-3 rounded-xl border border-[#DCD7C9] bg-[#DCD7C9]/20 outline-none text-mate-forest font-bold" />
               </div>
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-2 uppercase tracking-wide opacity-90">Issue Date</label>
+                <label className="block text-sm font-bold text-[#2C3930] mb-2 uppercase tracking-wide opacity-90">Issue Date</label>
                 <input type="date" value={issueDate} onChange={(e) => setIssueDate(e.target.value)} className={inputClasses} />
               </div>
               <div>
-                <label className="block text-sm font-bold text-mate-dark mb-2 uppercase tracking-wide opacity-90">Due Date</label>
+                <label className="block text-sm font-bold text-[#2C3930] mb-2 uppercase tracking-wide opacity-90">Due Date</label>
                 <input type="date" value={dueDate} onChange={(e) => setDueDate(e.target.value)} className={inputClasses} />
               </div>
             </div>
           </div>
 
-          <div className="bg-white rounded-2xl border border-mate-cream shadow-sm overflow-hidden">
-            <div className="p-5 bg-mate-cream/40 border-b border-mate-cream flex justify-between items-center">
+          <div className="bg-white rounded-2xl border border-[#DCD7C9] shadow-sm overflow-hidden">
+            <div className="p-5 bg-[#DCD7C9]/40 border-b border-[#DCD7C9] flex justify-between items-center">
               <h3 className="font-extrabold text-mate-forest uppercase text-sm tracking-widest">Billing Summary</h3>
               <button type="button" onClick={addItem} className="bg-[#3F4F44] text-white px-4 py-1.5 rounded-lg font-bold text-xs flex items-center gap-1.5 hover:bg-mate-dark transition-all shadow-md active:scale-95">
                 <Plus size={16} /> Add Row
@@ -310,7 +310,7 @@ export default function InvoiceForm() {
             </div>
             <div className="overflow-x-auto">
               <table className="w-full text-left">
-                <thead className="bg-mate-cream/10 text-[11px] uppercase font-bold text-mate-forest">
+                <thead className="bg-[#DCD7C9]/10 text-[11px] uppercase font-bold text-mate-forest">
                   <tr>
                     <th className="px-5 py-4 min-w-55">Description</th>
                     <th className="px-5 py-4 w-24">Qty</th>
@@ -319,9 +319,9 @@ export default function InvoiceForm() {
                     <th className="px-5 py-4 w-12"></th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-mate-cream/40">
+                <tbody className="divide-y divide-[#DCD7C9]/40">
                   {items.map((item, idx) => (
-                    <tr key={idx} className="group hover:bg-mate-cream/5 transition-colors">
+                    <tr key={idx} className="group hover:bg-[#DCD7C9]/5 transition-colors">
                       <td className="px-5 py-3 align-top">
                         <textarea 
                           rows={2}
@@ -342,8 +342,8 @@ export default function InvoiceForm() {
                         />
                       </td>
                       <td className="px-5 py-3 align-top">
-                        <div className="flex items-center gap-1.5 text-sm font-black text-mate-dark">
-                          <span className="text-mate-forest/40">{currency}</span>
+                        <div className="flex items-center gap-1.5 text-sm font-black text-[#2C3930]">
+                          <span className="text-[#3F4F44]/40">{currency}</span>
                           <input 
                             type="number" 
                             step="0.01"
@@ -353,7 +353,7 @@ export default function InvoiceForm() {
                           />
                         </div>
                       </td>
-                      <td className="px-5 py-3 align-top font-black text-mate-dark text-sm">
+                      <td className="px-5 py-3 align-top font-black text-[#2C3930] text-sm">
                         {formatCurrency(item.total || 0, currency)}
                       </td>
                       <td className="px-5 py-3 align-top">
@@ -368,11 +368,11 @@ export default function InvoiceForm() {
             </div>
           </div>
 
-          <div className="bg-white p-7 rounded-2xl border border-mate-cream shadow-sm">
+          <div className="bg-white p-7 rounded-2xl border border-[#DCD7C9] shadow-sm">
             <label className="block text-sm font-bold text-mate-dark mb-3 uppercase tracking-widest opacity-90">Terms & Payment Instructions</label>
             <textarea 
               rows={4} 
-              className="w-full px-4 py-3 rounded-xl border-2 border-mate-forest/10 focus:ring-4 focus:ring-mate-brown/20 focus:border-mate-brown outline-none bg-white text-sm font-bold leading-relaxed text-mate-dark"
+              className="w-full px-4 py-3 rounded-xl border-2 border-[#3F4F44]/10 focus:ring-4 focus:ring-[#A27B5C]/20 focus:border-[#A27B5C] outline-none bg-white text-sm font-bold leading-relaxed text-mate-dark"
               placeholder="Bank transfer details, payment terms, etc."
               value={notes}
               onChange={(e) => setNotes(e.target.value)}
@@ -392,31 +392,31 @@ export default function InvoiceForm() {
         </form>
 
         <div className={`lg:col-span-5 sticky top-8 space-y-6 ${!showPreview ? 'hidden lg:block' : 'block'}`}>
-          <div className="bg-white rounded-4xl border-2 border-mate-forest/10 shadow-2xl overflow-hidden flex flex-col min-h-160">
+          <div className="bg-white rounded-4xl border-2 border-[#3F4F44]/10 shadow-2xl overflow-hidden flex flex-col min-h-160">
             <div className="h-4 bg-[#3F4F44] w-full" />
             <div className="p-8 flex-1 flex flex-col">
               <div className="flex justify-between items-start mb-10">
                 <div className="flex items-center gap-4">
                   {settings?.logo && <img src={settings.logo} alt="Logo" className="w-16 h-16 object-contain" />}
                   <div>
-                    <h4 className="text-lg font-black text-mate-forest leading-tight">{settings?.businessName || 'Brand Name'}</h4>
-                    <p className="text-[10px] text-mate-forest/60 uppercase">{settings?.address}</p>
+                    <h4 className="text-lg font-black text-[#3F4F44] leading-tight">{settings?.businessName || 'Brand Name'}</h4>
+                    <p className="text-[10px] text-[#3F4F44]/60 uppercase">{settings?.address}</p>
                   </div>
                 </div>
                 <div className="text-right">
-                  <h5 className="text-[10px] font-black text-mate-brown uppercase tracking-widest">Invoice</h5>
+                  <h5 className="text-[10px] font-black text-[#A27B5C] uppercase tracking-widest">Invoice</h5>
                   <p className="text-sm font-black text-mate-dark">{invoiceNo}</p>
                 </div>
               </div>
               <div className="flex-1">
                 <table className="w-full">
-                  <thead className="border-b-2 border-mate-dark/10">
+                  <thead className="border-b-2 border-[#2C3930]/10">
                     <tr>
                       <th className="text-left py-2 text-[10px] font-black uppercase">Service</th>
                       <th className="text-right py-2 text-[10px] font-black uppercase">Total</th>
                     </tr>
                   </thead>
-                  <tbody className="divide-y divide-mate-cream/40">
+                  <tbody className="divide-y divide-[#DCD7C9]/40">
                     {items.filter(i => i.description || i.total).map((item, i) => (
                       <tr key={i}>
                         <td className="py-3 pr-4">
@@ -430,7 +430,7 @@ export default function InvoiceForm() {
                   </tbody>
                 </table>
               </div>
-              <div className="mt-10 pt-6 border-t-4 border-mate-forest">
+              <div className="mt-10 pt-6 border-t-4 border-[#3F4F44]">
                 <div className="flex justify-between items-end">
                   <span className="text-xs font-bold text-mate-dark uppercase">Grand Total Due</span>
                   <span className="text-3xl font-black text-mate-dark">{formatCurrency(total, currency)}</span>

@@ -65,7 +65,7 @@ export default function Invoices() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold text-mate-dark">Invoices</h2>
-          <p className="text-mate-forest opacity-80">Track your billing and payments</p>
+          <p className="text-[#3F4F44] opacity-80">Track your billing and payments</p>
         </div>
         <Link 
           to="/invoices/new" 
@@ -78,19 +78,19 @@ export default function Invoices() {
 
       <div className="bg-white p-4 rounded-xl border border-[#DCD7C9] shadow-sm flex flex-col md:flex-row gap-4">
         <div className="flex-1 relative">
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-mate-forest opacity-50" size={18} />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#DCD7C9] opacity-50" size={18} />
           <input 
             type="text" 
             placeholder="Search by invoice # or client..." 
-            className="w-full pl-10 pr-4 py-2 rounded-lg border border-[#DCD7C9] outline-none focus:ring-2 focus:ring-[#A27B5C]/30"
+            className="w-full pl-10 pr-4 py-2 rounded-lg border bg-[#3F4F44] text-[#DCD7C9]  border-[#DCD7C9] outline-none focus:ring-2 focus:ring-[#A27B5C]/30"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
         </div>
         <div className="flex items-center gap-2">
-          <Filter size={18} className="text-mate-forest opacity-50" />
+          <Filter size={18} className="text-[#3F4F44] opacity-50" />
           <select 
-            className="px-6 py-2 rounded-lg border border-[#DCD7C9] outline-none focus:ring-2 focus:ring-[#A27B5C]/30"
+            className="px-6 py-2 rounded-lg border bg-[#3F4F44] text-[#DCD7C9] border-[#DCD7C9] outline-none focus:ring-2 focus:ring-[#A27B5C]/30"
             value={statusFilter}
             onChange={(e) => setStatusFilter(e.target.value)}
           >
@@ -123,7 +123,7 @@ export default function Invoices() {
                 onClick={() => navigate(`/invoices/${inv.id}`)}
               >
                 <td className="px-6 py-4">
-                  <span className="font-bold text-mate-forest">{inv.invoiceNo}</span>
+                  <span className="font-bold text-[#3F4F44]">{inv.invoiceNo}</span>
                 </td>
                 <td className="px-6 py-4">
                   <div className="text-sm font-medium text-mate-dark">{inv.clientName}</div>
@@ -132,7 +132,7 @@ export default function Invoices() {
                   <div className="font-bold text-mate-dark">{formatCurrency(inv.total, currency)}</div>
                 </td>
                 <td className="px-6 py-4">
-                  <div className="text-sm text-mate-forest">{new Date(inv.issueDate).toLocaleDateString()}</div>
+                  <div className="text-sm text-[#3F4F44]">{new Date(inv.issueDate).toLocaleDateString()}</div>
                 </td>
                 <td className="px-6 py-4">
                   <span className={`text-[10px] uppercase font-bold px-3 py-1 rounded-full border ${statusColors[inv.status]}`}>
@@ -141,7 +141,7 @@ export default function Invoices() {
                 </td>
                 <td className="px-6 py-4">
                   <div className="flex gap-2" onClick={(e) => e.stopPropagation()}>
-                    <Link to={`/invoices/${inv.id}`} className="p-2 text-mate-forest hover:bg-[#DCD7C9] rounded-lg" title="View Detail">
+                    <Link to={`/invoices/${inv.id}`} className="p-2 text-[#3F4F44] hover:bg-[#DCD7C9] rounded-lg" title="View Detail">
                       <Eye size={18} />
                     </Link>
                     <button 
@@ -161,7 +161,7 @@ export default function Invoices() {
           <div className="py-20 text-center">
             <FileText size={48} className="mx-auto text-[#DCD7C9] mb-4" />
             <h3 className="text-lg font-bold text-mate-dark">No invoices found</h3>
-            <p className="text-sm text-mate-forest">Try a different search or create a new invoice</p>
+            <p className="text-sm text-[#3F4F44]">Try a different search or create a new invoice</p>
           </div>
         )}
       </div>

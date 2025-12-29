@@ -60,7 +60,7 @@ export default function Clients() {
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h2 className="text-3xl font-bold text-mate-dark">Clients</h2>
-          <p className="text-mate-forest opacity-80">Manage your business contacts</p>
+          <p className="text-[#3F4F44] opacity-80">Manage your business contacts</p>
         </div>
         <button 
           onClick={() => { setEditingClient(null); setIsModalOpen(true); }}
@@ -72,7 +72,7 @@ export default function Clients() {
       </div>
 
       <div className="relative">
-        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-mate-forest opacity-50" size={20} />
+        <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-[#3F4F44] opacity-50" size={20} />
         <input 
           type="text" 
           placeholder="Search clients..." 
@@ -86,13 +86,13 @@ export default function Clients() {
         {clients?.map(client => (
           <div key={client.id} className="bg-white p-6 rounded-xl border border-[#DCD7C9] shadow-sm hover:shadow-md transition-shadow group relative">
             <div className="flex justify-between items-start mb-4">
-              <div className="w-12 h-12 bg-[#3F4F44]/10 rounded-full flex items-center justify-center text-mate-forest">
+              <div className="w-12 h-12 bg-[#3F4F44]/10 rounded-full flex items-center justify-center text-[#3F4F44]">
                 <User size={24} />
               </div>
               <div className="flex gap-2">
                 <button 
                   onClick={() => { setEditingClient(client); setIsModalOpen(true); }}
-                  className="p-2 text-mate-forest hover:bg-[#DCD7C9] rounded-lg cursor-pointer"
+                  className="p-2 text-[#3F4F44] hover:bg-[#DCD7C9] rounded-lg cursor-pointer"
                 >
                   <Edit2 size={16} />
                 </button>

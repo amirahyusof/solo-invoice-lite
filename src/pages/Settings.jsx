@@ -86,14 +86,14 @@ export default function Settings() {
   };
 
   // Enhanced input classes for readability
-  const inputClasses = "w-full px-5 py-3 rounded-2xl border-2 border-[#3F4F44]/20 bg-white focus:ring-4 focus:ring-[#A27B5C]/10 focus:border-[#A27B5C] outline-none font-bold text-mate-dark transition-all placeholder:text-[#3F4F44]/30 shadow-sm";
+  const inputClasses = "w-full px-5 py-3 rounded-2xl border-2 border-[#3F4F44]/20 bg-gray/80 focus:ring-4 focus:ring-[#A27B5C]/10 focus:border-[#A27B5C] outline-none font-bold text-mate-dark transition-all placeholder:text-[#3F4F44]/30 shadow-sm";
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
       <div className="flex justify-between items-center">
         <div>
           <h2 className="text-3xl font-black text-mate-dark tracking-tight">Business Profile</h2>
-          <p className="text-mate-forest font-medium opacity-70">Control how your brand appears on documents</p>
+          <p className="text-[#3F4F44] font-medium opacity-70">Control how your brand appears on documents</p>
         </div>
         {success && (
           <div className="flex items-center gap-2 bg-green-100 text-green-700 px-4 py-2 rounded-xl font-bold animate-in fade-in slide-in-from-top-2">
@@ -129,7 +129,7 @@ export default function Settings() {
                     </button>
                   </div>
                 ) : (
-                  <div className="w-40 h-40 rounded-2xl border-2 border-dashed border-[#DCD7C9] bg-white flex flex-col items-center justify-center text-mate-forest opacity-40 group-hover:bg-[#DCD7C9]/10 transition-colors">
+                  <div className="w-40 h-40 rounded-2xl border-2 border-dashed border-[#DCD7C9] bg-white flex flex-col items-center justify-center text-[#3F4F44] opacity-40 group-hover:bg-[#DCD7C9]/10 transition-colors">
                     <ImageIcon size={48} strokeWidth={1.5} />
                     <span className="text-[10px] font-black mt-2 uppercase tracking-widest">No Logo Uploaded</span>
                   </div>
@@ -137,7 +137,7 @@ export default function Settings() {
               </div>
               <div className="flex-1 space-y-3">
                 <h4 className="text-base font-black text-mate-dark">Corporate Logo</h4>
-                <p className="text-sm text-mate-forest leading-relaxed font-medium">
+                <p className="text-sm text-[#3F4F44] leading-relaxed font-medium">
                   This logo will be displayed prominently on your invoices and receipts. 
                 </p>
                 <label className="inline-flex items-center gap-2 px-6 py-2.5 bg-[#A27B5C] text-white rounded-xl text-sm font-black cursor-pointer hover:bg-[#A27B5C]/90 transition-all shadow-lg shadow-[#A27B5C]/20 active:scale-95">
@@ -242,7 +242,7 @@ export default function Settings() {
             <div className="space-y-2">
               <label className="text-xs font-black text-[#A27B5C] uppercase tracking-widest">Currency</label>
               <div className="relative">
-                <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-mate-forest opacity-40" size={20} />
+                <Globe className="absolute left-4 top-1/2 -translate-y-1/2 text-[#3F4F44] opacity-40" size={20} />
                 <select 
                   name="currency" 
                   defaultValue={settings?.currency || 'MYR'} 

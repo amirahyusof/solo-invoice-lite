@@ -28,12 +28,12 @@ export default function ReceiptDetail() {
     <div className="space-y-6 pb-20">
       <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div className="flex items-center gap-4">
-          <button onClick={() => navigate(`/invoices/${invoice.id}`)} className="p-2 bg-white border border-mate-cream rounded-lg text-mate-forest hover:bg-mate-cream transition-colors">
+          <button onClick={() => navigate(`/invoices/${invoice.id}`)} className="p-2 bg-white border border-mate-cream rounded-lg text-[#3F4F44] hover:bg-mate-cream transition-colors">
             <ArrowLeft size={20} />
           </button>
           <div>
             <h2 className="text-2xl font-bold text-mate-dark">Receipt {receipt.receiptNo}</h2>
-            <p className="text-sm text-mate-forest">Payment for Invoice {invoice.invoiceNo}</p>
+            <p className="text-sm text-[#3F4F44]">Payment for Invoice {invoice.invoiceNo}</p>
           </div>
         </div>
         <div className="flex gap-2">
@@ -57,25 +57,25 @@ export default function ReceiptDetail() {
             <div>
               <p className="text-xs font-bold text-mate-brown uppercase mb-1">From:</p>
               <p className="font-bold text-mate-dark">{settings.businessName}</p>
-              <p className="text-xs text-mate-forest">{settings.email}</p>
+              <p className="text-xs text-[#3F4F44]">{settings.email}</p>
             </div>
             <div className="text-right">
               <p className="text-xs font-bold text-mate-brown uppercase mb-1">To:</p>
               <p className="font-bold text-mate-dark">{client.name}</p>
-              {client.company && <p className="text-xs text-mate-forest">{client.company}</p>}
+              {client.company && <p className="text-xs text-[#3F4F44]">{client.company}</p>}
             </div>
           </div>
 
           <div className="bg-mate-cream/30 p-8 rounded-2xl text-center space-y-4">
-            <p className="text-sm text-mate-forest uppercase font-bold tracking-widest">Amount Received</p>
+            <p className="text-sm text-[#3F4F44] uppercase font-bold tracking-widest">Amount Received</p>
             <h2 className="text-4xl font-black text-mate-dark">{formatCurrency(receipt.amountPaid, currency)}</h2>
             <div className="flex justify-center gap-8 pt-4">
               <div>
-                <p className="text-[10px] text-mate-forest uppercase font-bold">Paid Date</p>
+                <p className="text-[10px] text-[#3F4F44] uppercase font-bold">Paid Date</p>
                 <p className="font-bold text-sm">{formatDate(receipt.paidDate)}</p>
               </div>
               <div>
-                <p className="text-[10px] text-mate-forest uppercase font-bold">Method</p>
+                <p className="text-[10px] text-[#3F4F44] uppercase font-bold">Method</p>
                 <p className="font-bold text-sm">{receipt.paymentMethod}</p>
               </div>
             </div>
@@ -83,17 +83,17 @@ export default function ReceiptDetail() {
 
           <div className="space-y-4">
             <div className="flex justify-between items-center text-sm">
-              <span className="text-mate-forest font-medium">Receipt No:</span>
+              <span className="text-[#3F4F44] font-medium">Receipt No:</span>
               <span className="text-mate-dark font-bold">{receipt.receiptNo}</span>
             </div>
             <div className="flex justify-between items-center text-sm">
-              <span className="text-mate-forest font-medium">Reference Invoice:</span>
+              <span className="text-[#3F4F44] font-medium">Reference Invoice:</span>
               <span className="text-mate-dark font-bold">{invoice.invoiceNo}</span>
             </div>
             {receipt.notes && (
               <div className="pt-4 border-t border-mate-cream">
                 <p className="text-xs font-bold text-mate-brown uppercase mb-1">Notes:</p>
-                <p className="text-sm text-mate-forest italic">"{receipt.notes}"</p>
+                <p className="text-sm text-[#3F4F44] italic">"{receipt.notes}"</p>
               </div>
             )}
           </div>
@@ -101,7 +101,7 @@ export default function ReceiptDetail() {
           <div className="pt-12 flex flex-col items-center justify-center gap-4">
             <div className="w-32 h-0.5 bg-mate-dark" />
             <p className="text-xs font-bold text-mate-dark uppercase">Authorized Signature</p>
-            <p className="text-[10px] text-mate-forest">This is a computer-generated receipt.</p>
+            <p className="text-[10px] text-[#3F4F44]">This is a computer-generated receipt.</p>
           </div>
         </div>
       </div>
