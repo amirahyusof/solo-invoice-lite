@@ -1,6 +1,5 @@
-
 import { jsPDF } from 'jspdf';
-import 'jspdf-autotable';
+import autoTable from 'jspdf-autotable';
 import { formatCurrency, formatDate } from '../utils/formatter';
 
 /**
@@ -11,9 +10,9 @@ import { formatCurrency, formatDate } from '../utils/formatter';
  * @returns {Promise<void>}
  */
 export async function generateInvoicePDF(
-  invoice, 
-  client, 
-  items, 
+  invoice,
+  client,
+  items,
   settings
 ) {
   /** @type {any} */
@@ -71,7 +70,7 @@ export async function generateInvoicePDF(
   doc.text(clientAddrLines, 120, client.company ? 70 : 65);
 
   // Invoice Summary Table Info
-  doc.autoTable({
+  autoTable(doc, {
     startY: 100,
     head: [['Invoice Number', 'Issue Date', 'Due Date']],
     body: [[invoice.invoiceNo, formatDate(invoice.issueDate), formatDate(invoice.dueDate)]],
@@ -80,7 +79,7 @@ export async function generateInvoicePDF(
   });
 
   // Items Table
-  doc.autoTable({
+  autoTable(doc, {
     startY: doc.lastAutoTable.finalY + 10,
     head: [['Description', 'Qty', 'Unit Price', 'Total']],
     body: items.map(item => [
