@@ -7,7 +7,8 @@ import {
   Clock, 
   CheckCircle2, 
   AlertCircle,
-  Plus
+  Plus, 
+  LayoutDashboard
 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { formatCurrency } from '../utils/formatter';
@@ -23,7 +24,7 @@ const StatCard = ({ title, value, icon: Icon, colorClass }) => (
   <div className="bg-white p-6 rounded-xl shadow-sm border border-[#DCD7C9] flex items-start justify-between">
     <div>
       <p className="text-sm font-medium text-[#3F4F44] opacity-70 mb-1">{title}</p>
-      <h3 className="text-2xl font-bold text-mate-dark">{value}</h3>
+      <h3 className="text-2xl font-bold text-[#2C3930]">{value}</h3>
     </div>
     <div className={`p-3 rounded-lg ${colorClass}`}>
       <Icon size={24} />
@@ -51,24 +52,28 @@ export default function Dashboard() {
   const currency = settings?.currency || 'MYR';
 
   return (
-    <div className="space-y-8">
-      <div className="flex justify-between items-end">
+    <div className="space-y-8 animate-in fade-in duration-500">
+      <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
         <div>
-          <h2 className="text-3xl font-bold text-[#2C3930]">Dashboard</h2>
-          <p className="text-[#3F4F44] opacity-80">Welcome back, {settings?.businessName || 'Freelancer'}</p>
+          <div className="flex items-center gap-2 mb-1">
+            <LayoutDashboard size={20} className="text-[#A27B5C]" />
+            <h2 className="text-3xl font-black text-[#2C3930] tracking-tight">Dashboard</h2>
+          </div>
+          <p className="text-[#3F4F44] font-medium opacity-80">Managing your business, <span className="font-bold">{settings?.businessName || 'Freelancer'}</span></p>
         </div>
         <Link 
           to="/invoices/new" 
-          className="bg-[#A27B5C] text-white px-6 py-2 rounded-lg font-bold hover:bg-mate-brown/90 transition-colors flex items-center gap-2"
+          className="bg-[#A27B5C] text-white px-8 py-3 rounded-xl font-black hover:bg-mate-dark transition-all flex items-center gap-2 shadow-lg shadow-mate-forest/20 active:scale-95"
         >
           <Plus size={20} />
-          Create Invoice
+          New Invoice
         </Link>
       </div>
 
+
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <StatCard 
-          title="Total Received" 
+          title="Revenue" 
           value={formatCurrency(totalRevenue, currency)} 
           icon={CheckCircle2} 
           colorClass="bg-green-100 text-green-700"
@@ -80,7 +85,7 @@ export default function Dashboard() {
           colorClass="bg-yellow-100 text-yellow-700"
         />
         <StatCard 
-          title="Paid Invoices" 
+          title="Total Paid" 
           value={paidCount} 
           icon={FileText} 
           colorClass="bg-blue-100 text-blue-700"
@@ -95,8 +100,8 @@ export default function Dashboard() {
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
         <div className="bg-white p-6 rounded-xl border border-[#DCD7C9] shadow-sm">
-          <h3 className="text-lg font-bold mb-4 flex items-center gap-2">
-            <Clock size={20} />
+          <h3 className="text-lg font-bold text-[#2C3930] mb-6 flex items-center gap-2">
+            <Clock size={20}  className='text-[#A27B5C]'/>
             Recent Activity
           </h3>
           <div className="space-y-4">
@@ -120,8 +125,9 @@ export default function Dashboard() {
               </div>
             ))}
             {invoices.length === 0 && (
-              <div className="py-8 text-center text-[#3F4F44] opacity-60">
-                No invoices yet. Create your first one!
+              <div className="py-12 text-center text-[#3F4F44]/40">
+                <FileText size={48} className="mx-auto mb-4 opacity-20" />
+                <p className="font-black uppercase tracking-widest text-xs">Awaiting first transaction...</p>
               </div>
             )}
           </div>
@@ -129,17 +135,22 @@ export default function Dashboard() {
 
         <div className="bg-[#3F4F44] text-white p-8 rounded-xl shadow-lg flex flex-col justify-center relative overflow-hidden">
           <div className="relative z-10">
-            <h3 className="text-2xl font-bold mb-2">Need a Receipt?</h3>
-            <p className="mb-6 opacity-80">Mark any invoice as "Paid" and we'll automatically generate a professional receipt for you to share with your client.</p>
+            <h3 className="text-3xl font-black mb-4 leading-tight">Instant Receipt <br/>Generation</h3>
+            <p className="mb-8 font-medium text-white/70 max-w-sm leading-relaxed text-lg">
+              Mark any invoice as <span className="text-green-400 font-black">PAID</span> to unlock professional, Malaysia-compliant receipts instantly.
+            </p>
             <Link 
               to="/invoices" 
-              className="inline-block bg-[#DCD7C9] text-[#2C3930] px-6 py-3 rounded-lg font-bold hover:bg-white transition-colors"
+              className="inline-flex items-center gap-2 bg-[#DCD7C9] text-[#A27B5C] px-8 py-4 rounded-2xl font-black hover:bg-mate-cream hover:text-mate-dark transition-all shadow-xl active:scale-95"
             >
-              View Invoices
+              Manage Invoices
             </Link>
           </div>
-          {/* Decorative Circle */}
-          <div className="absolute -bottom-10 -right-10 w-40 h-40 bg-[#A27B5C]/20 rounded-full blur-2xl"></div>
+          {/* Decorative Elements */}
+          <div className="absolute -bottom-20 -right-20 w-64 h-64 bg-[#3F4F44]/20 rounded-full blur-3xl group-hover:scale-125 transition-transform duration-1000"></div>
+          <div className="absolute top-0 right-0 p-10 opacity-10 group-hover:rotate-12 transition-transform duration-700">
+            <CheckCircle2 size={120} />
+          </div>
         </div>
       </div>
     </div>
