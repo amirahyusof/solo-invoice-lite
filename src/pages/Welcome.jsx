@@ -58,7 +58,7 @@ export default function Welcome() {
               Professional Billing, <span className="text-[#3F4F44] italic">Simplified.</span>
             </h1>
             <p className="text-xl text-[#3F4F44]/80 font-medium max-w-lg leading-relaxed">
-              Create professional invoices and receipts in seconds. No accounts, no monthly fees, and works 100% offline.
+              Cipta invois dan resit profesional dalam beberapa saat. Tanpa akaun, tanpa yuran bulanan, dan berfungsi 100% luar talian.
             </p>
             
             <div className="flex flex-col sm:flex-row items-center gap-4 pt-4">
@@ -66,7 +66,7 @@ export default function Welcome() {
                 to="/dashboard" 
                 className="w-full sm:w-auto flex items-center justify-center gap-3 p-5 bg-[#3F4F44] text-white rounded-4xl font-black hover:bg-[#2C3930] transition-all shadow-2xl shadow-[#3F4F44]/30 active:scale-95 group"
               >
-                Go to Dashboard
+                Pergi ke Dashboard
                 <ArrowRight className="group-hover:translate-x-2 transition-transform" />
               </Link>
               {!hasSettings && (
@@ -75,7 +75,7 @@ export default function Welcome() {
                   className="w-full sm:w-auto flex items-center justify-center gap-2 p-4 bg-white border-2 border-[#3F4F44]/10 text-[#3F4F44] rounded-4xl font-black hover:bg-[#DCD7C9]/30 transition-all active:scale-95"
                 >
                   <SettingsIcon size={20} />
-                  Setup Business Profile
+                  Sediakan Profil Perniagaan
                 </Link>
               )}
             </div>
@@ -109,17 +109,17 @@ export default function Welcome() {
           <FeatureCard 
             icon={ShieldCheck}
             title="Private by Default"
-            description="Your data never leaves your device. Everything is stored locally in your browser for maximum privacy."
+            description="Data anda tidak pernah meninggalkan peranti anda. Segala-galanya disimpan secara tempatan dalam penyemak imbas anda untuk privasi maksimum."
           />
           <FeatureCard 
             icon={WifiOff}
-            title="Works Everywhere"
-            description="No internet? No problem. InvoiceMate is offline-first, so you can bill your clients anywhere, anytime."
+            title="Berfungsi di Mana-mana"
+            description="Tiada internet? Tiada masalah. InvoiceMate adalah luar talian terlebih dahulu, jadi anda boleh mengebil pelanggan anda di mana-mana, bila-bila."
           />
           <FeatureCard 
             icon={FileText}
-            title="Professional PDF"
-            description="Generate high-quality PDF invoices and receipts formatted for Malaysian business standards."
+            title="PDF Profesional"
+            description="Hasilkan invois dan resit berkualiti tinggi yang diformat mengikut piawaian perniagaan Malaysia."
           />
         </div>
 
@@ -127,14 +127,14 @@ export default function Welcome() {
         <div className="bg-[#2C3930] text-white p-12 md:p-20 rounded-[3rem] text-center space-y-8 relative overflow-hidden">
           <div className="absolute top-0 left-0 w-full h-full bg-[#3F4F44]/10" />
           <h2 className="text-4xl md:text-5xl font-black relative z-10 leading-tight">
-            Ready to streamline your <br className="hidden md:block" /> business billing?
+            Sedia untuk menyelaraskan pengebilan <br className="hidden md:block" /> perniagaan anda?
           </h2>
           <div className="relative z-10 pt-4">
             <Link 
               to="/invoices/new" 
               className="inline-flex items-center gap-3 p-6 bg-[#A27B5C] text-white rounded-[2.5rem] font-black text-lg hover:bg-[#A27B5C]/90 transition-all shadow-xl active:scale-95"
             >
-              Create My First Invoice <ChevronRight />
+              Cipta Invois Pertama Saya <ChevronRight />
             </Link>
           </div>
         </div>
