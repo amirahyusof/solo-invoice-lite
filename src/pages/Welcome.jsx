@@ -41,7 +41,7 @@ export default function Welcome() {
 
       <div className="max-w-7xl mx-auto px-6 pt-12 pb-24 relative z-10">
         {/* Navbar-ish Logo */}
-        <div className="flex items-center gap-3 mb-24 animate-in fade-in slide-in-from-top-4 duration-700">
+        <div className="flex items-center gap-3 mb-10 animate-in fade-in slide-in-from-top-4 duration-700">
           <div className="w-12 h-12 bg-[#3F4F44] text-white rounded-xl flex items-center justify-center font-black text-xl shadow-lg shadow-[#3F4F44]/20">
             SI
           </div>
@@ -50,7 +50,7 @@ export default function Welcome() {
 
         {/* Hero Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center mb-32">
-          <div className="space-y-8 animate-in fade-in slide-in-from-left-8 duration-1000">
+          <div className="space-y-6 animate-in fade-in slide-in-from-left-8 duration-1000">
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#A27B5C]/10 text-[#A27B5C] rounded-full text-xs font-black uppercase tracking-[0.2em]">
               <Sparkles size={14} /> Built for Solo Freelancers
             </div>
@@ -82,8 +82,8 @@ export default function Welcome() {
           </div>
 
           <div className="relative animate-in fade-in slide-in-from-right-8 duration-1000 delay-200">
-            <div className="bg-white p-6 rounded-[3rem] border-4 border-white shadow-2xl rotate-3 relative z-10">
-              <div className="bg-[#DCD7C9]/20 rounded-4xl p-8 aspect-4/5 flex flex-col">
+            <div className="bg-white h-120 p-6 rounded-[3rem] border-4 border-white shadow-2xl rotate-3 relative z-10">
+              <div className="bg-[#DCD7C9]/20 h-105 w-100 sm:w-160 md:w-130 rounded-4xl p-8 aspect-4/5 flex flex-col">
                 <div className="flex justify-between mb-12">
                   <div className="w-16 h-4 bg-[#3F4F44]/20 rounded-full" />
                   <div className="w-8 h-8 bg-[#A27B5C]/20 rounded-lg" />
