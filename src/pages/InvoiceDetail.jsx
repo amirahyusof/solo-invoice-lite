@@ -33,7 +33,7 @@ export default function InvoiceDetail() {
   const currency = settings.currency || 'MYR';
 
   const handleDownloadPDF = () => {
-    generateInvoicePDF(invoice, client, items, settings);
+    generateInvoicePDF(invoice, client, items, settings, receipt);
   };
 
   /**
