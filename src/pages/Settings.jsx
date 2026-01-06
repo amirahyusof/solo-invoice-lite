@@ -11,8 +11,11 @@ import {
   Upload, 
   Trash2, 
   Image as ImageIcon,
-  Loader2
+  Loader2,
+  Download,
+  AlertCircle
 } from 'lucide-react';
+import * as XLSX from 'xlsx';
 
 export default function Settings() {
   const settings = useLiveQuery(() => db.settings.get(1));
@@ -20,6 +23,8 @@ export default function Settings() {
   /** @type {[string | undefined, Function]} */
   const [logoBase64, setLogoBase64] = useState(undefined);
   const [isSaving, setIsSaving] = useState(false);
+  const [isExporting, setIsExporting] = useState(false);
+  const [isDeleting, setIsDeleting] = useState(false);
 
   useEffect(() => {
     if (settings?.logo) {
@@ -87,6 +92,91 @@ export default function Settings() {
 
   // Enhanced input classes for readability
   const inputClasses = "w-full px-5 py-3 rounded-2xl border-2 border-[#3F4F44]/20 bg-gray/80 focus:ring-4 focus:ring-[#A27B5C]/10 focus:border-[#A27B5C] outline-none font-bold text-mate-dark transition-all placeholder:text-[#3F4F44]/30 shadow-sm";
+
+  const handleExportToExcel = async () => {
+    setIsExporting(true);
+    try {
+      const clients = await db.clients.toArray();
+      const invoices = await db.invoices.toArray();
+      const receipts = await db.receipts.toArray();
+
+      const workbook = XLSX.utils.book_new();
+
+      // Clients Sheet
+      const clientsData = clients.map(client => ({
+        'Name': client.name,
+        'Company': client.company || '',
+        'Email': client.email || '',
+        'Phone': client.phone || '',
+        'Address': client.address || '',
+        'Tax ID': client.taxId || '',
+      }));
+      const clientsSheet = XLSX.utils.json_to_sheet(clientsData);
+      XLSX.utils.book_append_sheet(workbook, clientsSheet, 'Clients');
+
+      // Invoices Sheet
+      const invoicesData = invoices.map(invoice => ({
+        'Invoice No': invoice.invoiceNo,
+        'Client ID': invoice.clientId,
+        'Client Name': clients.find(c => c.id === invoice.clientId)?.name || '',
+        'Amount': invoice.total || 0,
+        'Issue Date': invoice.issueDate || '',
+        'Due Date': invoice.dueDate || '',
+        'Status': invoice.status || 'Pending',
+        'Notes': invoice.notes || '',
+      }));
+      const invoicesSheet = XLSX.utils.json_to_sheet(invoicesData);
+      XLSX.utils.book_append_sheet(workbook, invoicesSheet, 'Invoices');
+
+      // Receipts Sheet
+      const receiptsData = receipts.map(receipt => ({
+        'Receipt No': receipt.receiptNo,
+        'Invoice No': invoices.find(i => i.id === receipt.invoiceId)?.invoiceNo || '',
+        'Amount Paid': receipt.amountPaid || 0,
+        'Payment Method': receipt.paymentMethod || '',
+        'Paid Date': receipt.paidDate || '',
+        'Notes': receipt.notes || '',
+      }));
+      const receiptsSheet = XLSX.utils.json_to_sheet(receiptsData);
+      XLSX.utils.book_append_sheet(workbook, receiptsSheet, 'Receipts');
+
+      // Generate file
+      XLSX.writeFile(workbook, `invoice-data-${new Date().toISOString().split('T')[0]}.xlsx`);
+      alert("Data exported successfully!");
+    } catch (err) {
+      console.error("Failed to export data", err);
+      alert("Error exporting data. Please try again.");
+    } finally {
+      setIsExporting(false);
+    }
+  };
+
+  const handleDeleteAllData = async () => {
+    const confirmDelete = window.confirm(
+      "⚠️ WARNING: This will delete ALL data including clients, invoices, and receipts. This action cannot be undone. Are you sure?"
+    );
+    
+    if (!confirmDelete) return;
+
+    const doubleConfirm = window.confirm(
+      "This is your LAST chance. Click OK only if you're absolutely sure you want to delete everything."
+    );
+    
+    if (!doubleConfirm) return;
+
+    setIsDeleting(true);
+    try {
+      await db.clients.clear();
+      await db.invoices.clear();
+      await db.receipts.clear();
+      alert("All data has been deleted successfully!");
+    } catch (err) {
+      console.error("Failed to delete data", err);
+      alert("Error deleting data. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };
 
   return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
@@ -266,6 +356,51 @@ export default function Settings() {
           Persist Business Settings
         </button>
       </form>
+
+      {/* Data Management Section */}
+      <div className="bg-white rounded-3xl border border-[#DCD7C9] shadow-sm overflow-hidden">
+        <div className="p-6 bg-[#DCD7C9]/20 border-b border-[#DCD7C9] flex items-center gap-3">
+          <AlertCircle className="text-[#A27B5C]" size={24} />
+          <h3 className="text-lg font-black text-mate-dark uppercase tracking-tight">Data Management</h3>
+        </div>
+        <div className="p-8 space-y-6">
+          <div className="space-y-4">
+            <div>
+              <h4 className="text-base font-black text-mate-dark mb-2">Export Your Data</h4>
+              <p className="text-sm text-[#3F4F44] leading-relaxed font-medium mb-4">
+                Download all your clients, invoices, and receipts as an Excel file for backup or analysis purposes.
+              </p>
+              <button 
+                type="button"
+                onClick={handleExportToExcel}
+                disabled={isExporting}
+                className="w-full bg-[#A27B5C] cursor-pointer text-white py-4 rounded-2xl font-black text-lg hover:bg-[#8B6349] transition-all flex items-center justify-center gap-3 shadow-lg shadow-[#A27B5C]/20 active:scale-[0.98] disabled:opacity-70"
+              >
+                {isExporting ? <Loader2 className="animate-spin" /> : <Download size={20} />}
+                Export Data to Excel
+              </button>
+            </div>
+
+            <div className="border-t border-[#DCD7C9] pt-6">
+              <h4 className="text-base font-black text-mate-dark mb-2 flex items-center gap-2">
+                <span className="text-red-500">⚠️</span> Delete All Data
+              </h4>
+              <p className="text-sm text-[#3F4F44] leading-relaxed font-medium mb-4">
+                This will permanently delete all clients, invoices, and receipts. This action cannot be undone. We recommend exporting your data first.
+              </p>
+              <button 
+                type="button"
+                onClick={handleDeleteAllData}
+                disabled={isDeleting}
+                className="w-full bg-red-600 cursor-pointer text-white py-4 rounded-2xl font-black text-lg hover:bg-red-700 transition-all flex items-center justify-center gap-3 shadow-lg shadow-red-600/20 active:scale-[0.98] disabled:opacity-70"
+              >
+                {isDeleting ? <Loader2 className="animate-spin" /> : <Trash2 size={20} />}
+                Delete All Data Permanently
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
   );
 }
