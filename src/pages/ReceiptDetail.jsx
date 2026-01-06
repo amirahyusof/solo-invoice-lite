@@ -60,9 +60,10 @@ export default function ReceiptDetail() {
               <p className="text-xs text-[#3F4F44]">{settings.email}</p>
             </div>
             <div className="text-right">
-              <p className="text-xs font-bold text-mate-brown uppercase mb-1">To:</p>
-              <p className="font-bold text-mate-dark">{client.name}</p>
-              {client.company && <p className="text-xs text-[#3F4F44]">{client.company}</p>}
+              <p className="text-xs font-bold text-mate-brown uppercase mb-1">Received From:</p>
+              <p className="text-sm text-[#3F4F44] leading-relaxed">
+                {client.name}  {client.address && `${client.address}`}
+              </p>
             </div>
           </div>
 
