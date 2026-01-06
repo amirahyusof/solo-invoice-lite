@@ -3,17 +3,66 @@ import autoTable from 'jspdf-autotable';
 import { formatCurrency, formatDate } from '../utils/formatter';
 
 /**
+ * Add a watermark to the PDF for paid invoices
+ * @param {any} doc - jsPDF document
+ * @param {string} text - Watermark text
+ * @param {Date} paidDate - Date when payment was received
+ */
+function addPaidWatermark(doc, text, paidDate) {
+  const pageWidth = doc.internal.pageSize.getWidth();
+  const pageHeight = doc.internal.pageSize.getHeight();
+
+  // Save current state
+  const currentFont = doc.currentFont;
+  const currentFontSize = doc.getFontSize();
+  const currentColor = doc.getTextColor();
+
+  // Add diagonal PAID watermark
+  doc.setTextColor(76, 175, 80); // Green color
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(80);
+  doc.setOpacity(0.15);
+
+  // Rotate and position the watermark diagonally
+  doc.text(text, pageWidth / 2, pageHeight / 2, {
+    align: 'center',
+    angle: -45,
+    baseline: 'middle'
+  });
+
+  doc.setOpacity(1);
+
+  // Add receipt date below the watermark area
+  doc.setOpacity(0.3);
+  doc.setTextColor(76, 175, 80);
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(12);
+  doc.text(`Diterima pada ${formatDate(paidDate)}`, pageWidth / 2, pageHeight / 2 + 35, {
+    align: 'center'
+  });
+
+  doc.setOpacity(1);
+
+  // Restore previous state
+  doc.setTextColor(currentColor[0], currentColor[1], currentColor[2]);
+  doc.setFont(currentFont.fontName, currentFont.fontStyle);
+  doc.setFontSize(currentFontSize);
+}
+
+/**
  * @param {Invoice} invoice
  * @param {Client} client
  * @param {InvoiceItem[]} items
  * @param {BusinessSettings} settings
+ * @param {Receipt} [receipt] - Optional receipt for paid invoices
  * @returns {Promise<void>}
  */
 export async function generateInvoicePDF(
   invoice,
   client,
   items,
-  settings
+  settings,
+  receipt
 ) {
   /** @type {any} */
   const doc = new jsPDF();
@@ -125,6 +174,11 @@ export async function generateInvoicePDF(
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.text('Thank you for your business!', 105, 285, { align: 'center' });
+
+  // Add watermark if invoice is paid
+  if (invoice.status === 'paid' && receipt) {
+    addPaidWatermark(doc, 'PAID', new Date(receipt.paidDate));
+  }
 
   doc.save(`${invoice.invoiceNo}.pdf`);
 }
