@@ -3,6 +3,39 @@ import autoTable from 'jspdf-autotable';
 import { formatCurrency, formatDate } from '../utils/formatter';
 
 /**
+ * Convert number to words in English
+ * @param {number} num
+ * @returns {string}
+ */
+function numberToWords(num) {
+  const ones = ['', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine'];
+  const teens = ['Ten', 'Eleven', 'Twelve', 'Thirteen', 'Fourteen', 'Fifteen', 'Sixteen', 'Seventeen', 'Eighteen', 'Nineteen'];
+  const tens = ['', '', 'Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety'];
+
+  const convertHundreds = (n) => {
+    if (n === 0) return '';
+    if (n < 10) return ones[n];
+    if (n < 20) return teens[n - 10];
+    return tens[Math.floor(n / 10)] + (n % 10 ? ' ' + ones[n % 10] : '');
+  };
+
+  if (num === 0) return 'Zero';
+  
+  const parts = [];
+  const thousands = Math.floor(num / 1000);
+  const remainder = num % 1000;
+
+  if (thousands > 0) {
+    parts.push(convertHundreds(thousands) + ' Thousand');
+  }
+  if (remainder > 0) {
+    parts.push(convertHundreds(remainder));
+  }
+
+  return parts.join(' ').trim();
+}
+
+/**
  * Add a watermark to the PDF for paid invoices
  * @param {any} doc - jsPDF document
  * @param {string} text - Watermark text
@@ -12,16 +45,10 @@ function addPaidWatermark(doc, text, paidDate) {
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
 
-  // Save current state
-  const currentFont = doc.currentFont;
-  const currentFontSize = doc.getFontSize();
-  const currentColor = doc.getTextColor();
-
-  // Add diagonal PAID watermark
-  doc.setTextColor(76, 175, 80); // Green color
+  // Add diagonal PAID watermark with light green color
+  doc.setTextColor(200, 230, 201); // Light green color
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(80);
-  doc.setOpacity(0.15);
 
   // Rotate and position the watermark diagonally
   doc.text(text, pageWidth / 2, pageHeight / 2, {
@@ -29,24 +56,6 @@ function addPaidWatermark(doc, text, paidDate) {
     angle: -45,
     baseline: 'middle'
   });
-
-  doc.setOpacity(1);
-
-  // Add receipt date below the watermark area
-  doc.setOpacity(0.3);
-  doc.setTextColor(76, 175, 80);
-  doc.setFont('helvetica', 'normal');
-  doc.setFontSize(12);
-  doc.text(`Diterima pada ${formatDate(paidDate)}`, pageWidth / 2, pageHeight / 2 + 35, {
-    align: 'center'
-  });
-
-  doc.setOpacity(1);
-
-  // Restore previous state
-  doc.setTextColor(currentColor[0], currentColor[1], currentColor[2]);
-  doc.setFont(currentFont.fontName, currentFont.fontStyle);
-  doc.setFontSize(currentFontSize);
 }
 
 /**
@@ -151,23 +160,30 @@ export async function generateInvoicePDF(
 
   // Totals
   doc.setFont('helvetica', 'bold');
-  doc.text('Total Amount Due:', 120, finalY + 15);
+  doc.text('Total Amount Due:', 165, finalY + 15);
   doc.setFontSize(16);
-  doc.text(formatCurrency(invoice.total, currency), 120, finalY + 25);
+  doc.text(formatCurrency(invoice.total, currency), 165, finalY + 25);
 
-  // Payment Instructions
-  doc.setFontSize(10);
-  doc.text('PAYMENT DETAILS', 20, finalY + 15);
-  doc.setFont('helvetica', 'normal');
-  doc.text(`Bank: ${settings.bankName}`, 20, finalY + 22);
-  doc.text(`Account Name: ${settings.bankAccountName}`, 20, finalY + 27);
-  doc.text(`Account No: ${settings.bankAccountNo}`, 20, finalY + 32);
+  let currentY = finalY + 35;
+
+  // Add extra space before notes
+  currentY += 60;
+
+  // Add receipt date on the left with black text in brackets (for paid invoices)
+  if (invoice.status === 'paid' && receipt) {
+    doc.setTextColor(0, 0, 0); // Black text
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
+    doc.text(`[Diterima pada ${formatDate(new Date(receipt.paidDate))}]`, 20, currentY);
+    currentY += 5;
+  }
+
 
   if (invoice.notes) {
     doc.setFont('helvetica', 'italic');
-    doc.text('Notes:', 20, finalY + 45);
+    doc.text('Notes:', 20, currentY);
     const noteLines = doc.splitTextToSize(invoice.notes, 170);
-    doc.text(noteLines, 20, finalY + 50);
+    doc.text(noteLines, 20, currentY + 5);
   }
 
   // Footer
@@ -200,65 +216,126 @@ export async function generateReceiptPDF(
   const doc = new jsPDF();
   const currency = settings.currency || 'MYR';
 
-  // Receipt Header
+  // ===== HEADER SECTION =====
+  // Brown header background
   doc.setFillColor(162, 123, 92); // mate-brown
-  doc.rect(0, 0, 210, 40, 'F');
+  doc.rect(0, 0, 210, 50, 'F');
 
-  let textStartX = 20;
+  // Logo and business name in header
+  let logoX = 15;
   if (settings.logo) {
     try {
-      doc.addImage(settings.logo, 'PNG', 20, 5, 25, 25);
-      textStartX = 50;
+      doc.addImage(settings.logo, 'PNG', 15, 5, 20, 20);
+      logoX = 40;
     } catch (e) {
       console.error("Failed to add logo to receipt PDF", e);
     }
   }
 
+  // Business details in white text in header
   doc.setTextColor(255, 255, 255);
-  doc.setFontSize(22);
   doc.setFont('helvetica', 'bold');
-  doc.text(settings.businessName, textStartX, 22);
-  doc.setFontSize(24);
-  doc.text('OFFICIAL RECEIPT', 110, 25);
+  doc.setFontSize(16);
+  doc.text(settings.businessName, logoX, 18);
 
-  // Info
-  doc.setTextColor(44, 57, 48);
-  doc.setFontSize(12);
-  doc.text(`Receipt No: ${receipt.receiptNo}`, 20, 60);
-  doc.text(`Date Paid: ${formatDate(receipt.paidDate)}`, 20, 68);
-  doc.text(`Reference Invoice: ${invoice.invoiceNo}`, 20, 76);
-
-  doc.text('RECEIVED FROM:', 120, 60);
-  doc.setFont('helvetica', 'bold');
-  doc.text(client.name, 120, 68);
-  if (client.company) doc.text(client.company, 120, 74);
-
-  // Main Amount Box
-  doc.setFillColor(220, 215, 201); // mate-cream
-  doc.rect(20, 90, 170, 40, 'F');
-  doc.setTextColor(44, 57, 48);
-  doc.setFontSize(14);
-  doc.text('The amount of:', 30, 105);
-  doc.setFontSize(24);
-  doc.setFont('helvetica', 'bold');
-  doc.text(formatCurrency(receipt.amountPaid, currency), 30, 120);
-
-  doc.setFontSize(12);
   doc.setFont('helvetica', 'normal');
-  doc.text(`Being payment for: Invoice ${invoice.invoiceNo}`, 30, 145);
-  doc.text(`Payment Method: ${receipt.paymentMethod}`, 30, 153);
+  doc.setFontSize(8);
+  const addressLines = doc.splitTextToSize(settings.address, 100);
+  doc.text(addressLines, logoX, 24);
 
-  if (receipt.notes) {
-    doc.setFont('helvetica', 'italic');
-    doc.text('Notes:', 30, 165);
-    doc.text(receipt.notes, 30, 172);
+  doc.setFontSize(8);
+  doc.text(`Tel: ${settings.phone} | Email: ${settings.email}`, logoX, 40);
+
+  // Right side - OFFICIAL RECEIPT title
+  doc.setFontSize(18);
+  doc.setFont('helvetica', 'bold');
+  doc.text('OFFICIAL RECEIPT', 165, 25, { align: 'right' });
+
+  // ===== RECEIPT INFO SECTION =====
+  doc.setTextColor(44, 57, 48); // Dark color
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(10);
+
+  const infoY = 62;
+  doc.text(`Receipt No: ${receipt.receiptNo}`, 20, infoY);
+  doc.text(`Date Paid: ${formatDate(receipt.paidDate)}`, 120, infoY);
+
+  doc.text(`Invoice Ref: ${invoice.invoiceNo}`, 20, infoY + 8);
+
+  // ===== RECEIVED FROM SECTION =====
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(10);
+  doc.text('RECEIVED FROM:', 20, infoY + 20);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  let receivedFromY = infoY + 27;
+  doc.text(client.name, 20, receivedFromY);
+
+  if (client.company) {
+    doc.text(client.company, 20, receivedFromY + 5);
+    receivedFromY += 5;
   }
 
-  // Signature
-  doc.line(130, 220, 190, 220);
+  if (client.address) {
+    const clientAddrLines = doc.splitTextToSize(client.address, 90);
+    doc.setFontSize(8);
+    doc.text(clientAddrLines, 20, receivedFromY + 5);
+  }
+
+  // ===== AMOUNT BOX =====
+  const amountBoxY = 115;
+  doc.setFillColor(220, 215, 201); // mate-cream
+  doc.rect(20, amountBoxY, 170, 45, 'F');
+
+  doc.setTextColor(44, 57, 48);
   doc.setFont('helvetica', 'normal');
-  doc.text('Authorized Signature', 140, 228);
-  doc.text(settings.businessName, 140, 235);
+  doc.setFontSize(10);
+  doc.text('Amount Received:', 30, amountBoxY + 8);
+
+  doc.setFont('helvetica', 'bold');
+  doc.setFontSize(28);
+  doc.text(formatCurrency(receipt.amountPaid, currency), 30, amountBoxY + 28);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  const amountInWords = numberToWords(Math.floor(receipt.amountPaid));
+  doc.text(`(${amountInWords} Ringgit Only)`, 30, amountBoxY + 38);
+
+  // ===== PAYMENT DETAILS =====
+  const detailsY = amountBoxY + 50;
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(9);
+  doc.text(`For Invoice: ${invoice.invoiceNo}`, 20, detailsY);
+  doc.text(`Payment Method: ${receipt.paymentMethod}`, 20, detailsY + 7);
+
+  // ===== NOTES SECTION =====
+  if (receipt.notes) {
+    const notesY = detailsY + 18;
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
+    doc.text('Remarks:', 20, notesY);
+
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(8);
+    const noteLines = doc.splitTextToSize(receipt.notes, 170);
+    doc.text(noteLines, 20, notesY + 6);
+  }
+
+  // ===== SIGNATURE SECTION =====
+  const sigY = 240;
+  doc.setLineWidth(0.5);
+  doc.line(130, sigY, 180, sigY);
+
+  doc.setFont('helvetica', 'normal');
+  doc.setFontSize(8);
+  doc.text('Authorized Signature', 155, sigY + 8, { align: 'center' });
+  doc.text(settings.businessName, 155, sigY + 15, { align: 'center' });
+
+  // ===== FOOTER =====
+  doc.setFontSize(7);
+  doc.setTextColor(120, 120, 120);
+  doc.text('Thank you for your business. Please keep this receipt for your records.', 105, 285, { align: 'center' });
 
   doc.save(`${receipt.receiptNo}.pdf`);
 }
