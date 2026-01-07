@@ -168,8 +168,12 @@ export default function Settings() {
     try {
       await db.clients.clear();
       await db.invoices.clear();
+      await db.invoice_items.clear();
       await db.receipts.clear();
-      alert("All data has been deleted successfully!");
+      // Reset counters to start from 0
+      await db.counters.update('invoice', { value: 0 });
+      await db.counters.update('receipt', { value: 0 });
+      alert("All data has been deleted successfully! Invoice and Receipt numbers have been reset.");
     } catch (err) {
       console.error("Failed to delete data", err);
       alert("Error deleting data. Please try again.");
@@ -178,7 +182,25 @@ export default function Settings() {
     }
   };
 
-  return (
+  const handleResetCounters = async () => {
+    const confirmReset = window.confirm(
+      "⚠️ This will reset the invoice and receipt numbering back to 1. Are you sure?"
+    );
+    
+    if (!confirmReset) return;
+
+    setIsDeleting(true);
+    try {
+      await db.counters.update('invoice', { value: 0 });
+      await db.counters.update('receipt', { value: 0 });
+      alert("Invoice and Receipt numbers have been reset! The next invoice will start from INV-2026-001 and receipt from RCT-2026-001.");
+    } catch (err) {
+      console.error("Failed to reset counters", err);
+      alert("Error resetting counters. Please try again.");
+    } finally {
+      setIsDeleting(false);
+    }
+  };  return (
     <div className="max-w-4xl mx-auto space-y-8 pb-20">
       <div className="flex justify-between items-center">
         <div>
@@ -378,6 +400,24 @@ export default function Settings() {
               >
                 {isExporting ? <Loader2 className="animate-spin" /> : <Download size={20} />}
                 Export Data to Excel
+              </button>
+            </div>
+
+            <div className="border-t border-[#DCD7C9] pt-6">
+              <h4 className="text-base font-black text-mate-dark mb-2 flex items-center gap-2">
+                <span className="text-orange-500">🔄</span> Reset Billing Numbers
+              </h4>
+              <p className="text-sm text-[#3F4F44] leading-relaxed font-medium mb-4">
+                Reset the invoice and receipt numbering sequence. The next invoice will start from INV-2026-001 and receipt from RCT-2026-001. Use this when starting a new fiscal year or business cycle.
+              </p>
+              <button 
+                type="button"
+                onClick={handleResetCounters}
+                disabled={isDeleting}
+                className="w-full bg-orange-500 cursor-pointer text-white py-4 rounded-2xl font-black text-lg hover:bg-orange-600 transition-all flex items-center justify-center gap-3 shadow-lg shadow-orange-500/20 active:scale-[0.98] disabled:opacity-70"
+              >
+                {isDeleting ? <Loader2 className="animate-spin" /> : <Download size={20} />}
+                Reset Invoice & Receipt Numbers
               </button>
             </div>
 
