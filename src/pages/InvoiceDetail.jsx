@@ -185,8 +185,8 @@ export default function InvoiceDetail() {
 
         <div className="space-y-6">
           {/* Quick Share Layout Refinement */}
-          <div className="bg-white p-8 rounded-2xl border border-[#DCD7C9] shadow-sm flex flex-row justify-between items-center">
-            <h3 className="font-black text-mate-dark flex items-center justify-center gap-2 uppercase tracking-widest text-sm text-center">
+          <div className="bg-white p-8 rounded-2xl border border-[#DCD7C9] shadow-sm flex flex-col justify-between items-center">
+            <h3 className="font-black text-mate-dark mb-4 flex items-center justify-center uppercase tracking-widest text-sm text-center">
               <Share2 size={20} className="text-[#A27B5C]" /> Quick Share
             </h3>
             <div className="flex flex-row gap-2 w-full max-w-fit">
@@ -204,7 +204,7 @@ export default function InvoiceDetail() {
                 title="Share via Email"
               >
                 <Mail size={24} />
-                <span className="font-black text-sm">Email Client</span>
+                <span className="font-black text-sm">Email</span>
               </button>
             </div>
           </div>
