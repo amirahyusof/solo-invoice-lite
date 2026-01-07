@@ -55,10 +55,10 @@ export default function ReceiptDetail() {
         <div className="p-8 space-y-8">
           <div className="flex justify-between border-b border-mate-cream pb-6">
             {/* Bahagian Perniagaan Anda */}
-            <div>
+            <div className='text-left max-w-62.5'>
               <p className="text-xs font-bold text-mate-brown uppercase mb-1">Issued By:</p>
               <p className="font-bold text-mate-dark">{settings.businessName}</p>
-              <p className="text-xs text-[#3F4F44]">{settings.email}</p>
+              <p className="text-xs text-[#3F4F44] capitalize">{settings.address}</p>
             </div>
 
             {/* Bahagian Pelanggan */}
