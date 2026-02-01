@@ -56,13 +56,13 @@ export default function Welcome() {
             </div>
             
             <div className="flex flex-wrap gap-2 mt-2">
-              <span className="px-3 py-1 text-xs font-black rounded-full bg-green-100 text-green-700">
+              <span className="px-3 py-1 text-xs font-black rounded-full bg-[#A27B5C]/50 text-[#886243]">
                 Free (Worth RM39)
               </span>
-              <span className="px-3 py-1 text-xs font-black rounded-full bg-blue-100 text-blue-700">
+              <span className="px-3 py-1 text-xs font-black rounded-full bg-[#A27B5C]/50 text-[#886243]">
                 Offline-first
               </span>
-              <span className="px-3 py-1 text-xs font-black rounded-full bg-purple-100 text-purple-700">
+              <span className="px-3 py-1 text-xs font-black rounded-full bg-[#A27B5C]/50 text-[#886243]">
                 Install as App
               </span>
             </div>
