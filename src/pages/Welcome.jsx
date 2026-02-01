@@ -54,6 +54,19 @@ export default function Welcome() {
             <div className="inline-flex items-center gap-2 px-4 py-2 bg-[#A27B5C]/10 text-[#A27B5C] rounded-full text-xs font-black uppercase tracking-[0.2em]">
               <Sparkles size={14} /> Built for Solo Freelancers
             </div>
+            
+            <div className="flex flex-wrap gap-2 mt-2">
+              <span className="px-3 py-1 text-xs font-black rounded-full bg-green-100 text-green-700">
+                Free (Worth RM39)
+              </span>
+              <span className="px-3 py-1 text-xs font-black rounded-full bg-blue-100 text-blue-700">
+                Offline-first
+              </span>
+              <span className="px-3 py-1 text-xs font-black rounded-full bg-purple-100 text-purple-700">
+                Install as App
+              </span>
+            </div>
+
             <h1 className="text-6xl md:text-7xl font-black text-mate-dark leading-[1.1] tracking-tighter">
               Professional Billing, <span className="text-[#3F4F44] italic">Simplified.</span>
             </h1>
