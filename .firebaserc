@@ -1,0 +1,13 @@
+{
+  "projects": {},
+  "targets": {
+    "solo-invoice-01": {
+      "hosting": {
+        "main": [
+          "solo-invoice-lite"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
