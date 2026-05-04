@@ -1,4 +1,4 @@
-const CACHE_NAME = "soloinvoice-v1";
+const CACHE_NAME = "soloinvoice-v2";
 const urlsToCache = [
   "/",
   "/index.html",
@@ -44,15 +44,24 @@ self.addEventListener("fetch", (event) => {
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Cache successful responses
-        if (response.status === 200) {
-          const cache = caches.open(CACHE_NAME);
-          cache.then((c) => c.put(event.request, response.clone()));
+        // Check if the response is valid for caching
+        if (!response || response.status !== 200 || response.type !== "basic") {
+          return response;
         }
+
+        // Clone the response before caching
+        const responseToCache = response.clone();
+       
+        //update cache with the latest response
+        caches.open(CACHE_NAME).then((cache) => {
+          cache.put(event.request, responseToCache);
+        });
+
+        //return the original response to the browser
         return response;
       })
       .catch(() => {
-        // Fallback to cache on network error
+        // Fallback to cache if network fails
         return caches.match(event.request);
       })
   );
