@@ -317,9 +317,9 @@ export async function generateReceiptPDF(
     doc.text('Remarks:', 20, notesY);
 
     doc.setFont('helvetica', 'normal');
-    doc.setFontSize(8);
+    doc.setFontSize(4);
     const noteLines = doc.splitTextToSize(receipt.notes, 170);
-    doc.text(noteLines, 20, notesY + 6);
+    doc.text(noteLines, 16, notesY + 4);
   }
 
   // ===== SIGNATURE SECTION =====
