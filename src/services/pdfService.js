@@ -45,12 +45,10 @@ function addPaidWatermark(doc, text, paidDate) {
   const pageWidth = doc.internal.pageSize.getWidth();
   const pageHeight = doc.internal.pageSize.getHeight();
 
-  // Add diagonal PAID watermark with light green color
-  doc.setTextColor(200, 230, 201); // Light green color
+  doc.setTextColor(200, 230, 201);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(80);
 
-  // Rotate and position the watermark diagonally
   doc.text(text, pageWidth / 2, pageHeight / 2, {
     align: 'center',
     angle: -45,
@@ -78,7 +76,7 @@ export async function generateInvoicePDF(
   const currency = settings.currency || 'MYR';
 
   // Header Colors
-  doc.setFillColor(63, 79, 68); // mate-forest
+  doc.setFillColor(63, 79, 68);
   doc.rect(0, 0, 210, 40, 'F');
 
   let textStartX = 20;
@@ -106,7 +104,7 @@ export async function generateInvoicePDF(
   doc.text('INVOICE', 140, 25);
 
   // Business Info Details
-  doc.setTextColor(44, 57, 48); // mate-dark
+  doc.setTextColor(44, 57, 48);
   doc.setFontSize(10);
   doc.text('FROM:', 20, 55);
   doc.setFont('helvetica', 'bold');
@@ -133,7 +131,7 @@ export async function generateInvoicePDF(
     head: [['Invoice Number', 'Issue Date', 'Due Date']],
     body: [[invoice.invoiceNo, formatDate(invoice.issueDate), formatDate(invoice.dueDate)]],
     theme: 'grid',
-    headStyles: { fillColor: [162, 123, 92] }, // mate-brown
+    headStyles: { fillColor: [162, 123, 92] },
   });
 
   // Items Table
@@ -147,7 +145,7 @@ export async function generateInvoicePDF(
       formatCurrency(item.total, currency)
     ]),
     theme: 'striped',
-    headStyles: { fillColor: [44, 57, 48] }, // mate-dark
+    headStyles: { fillColor: [44, 57, 48] },
     columnStyles: {
       0: { cellWidth: 'auto' },
       1: { cellWidth: 20, halign: 'center' },
@@ -158,40 +156,44 @@ export async function generateInvoicePDF(
 
   const finalY = doc.lastAutoTable.finalY;
 
-  // Totals
+  // --- TOTALS (saiz font betul, letak dekat dengan table) ---
+  doc.setTextColor(44, 57, 48);
   doc.setFont('helvetica', 'bold');
-  doc.text('Total Amount Due:', 165, finalY + 15);
-  doc.setFontSize(16);
-  doc.text(formatCurrency(invoice.total, currency), 165, finalY + 25);
+  doc.setFontSize(10);
+  doc.text('Total Amount Due:', 165, finalY + 12);
+  doc.setFontSize(14);
+  doc.text(formatCurrency(invoice.total, currency), 165, finalY + 22);
 
+  // --- NOTES (terus bawah total, tiada jurang besar) ---
   let currentY = finalY + 35;
 
-  // Add extra space before notes
-  currentY += 60;
-
-  // Add receipt date on the left with black text in brackets (for paid invoices)
+  // Receipt date untuk invois yang dah bayar
   if (invoice.status === 'paid' && receipt) {
-    doc.setTextColor(0, 0, 0); // Black text
+    doc.setTextColor(0, 0, 0);
     doc.setFont('helvetica', 'normal');
     doc.setFontSize(9);
     doc.text(`[Diterima pada ${formatDate(new Date(receipt.paidDate))}]`, 20, currentY);
-    currentY += 5;
+    currentY += 7;
   }
 
-
   if (invoice.notes) {
-    doc.setFont('helvetica', 'italic');
+    doc.setTextColor(44, 57, 48);
+    doc.setFont('helvetica', 'bold');
+    doc.setFontSize(9);
     doc.text('Notes:', 20, currentY);
+    doc.setFont('helvetica', 'normal');
+    doc.setFontSize(9);
     const noteLines = doc.splitTextToSize(invoice.notes, 170);
-    doc.text(noteLines, 20, currentY + 5);
+    doc.text(noteLines, 20, currentY + 6);
   }
 
   // Footer
+  doc.setTextColor(44, 57, 48);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(8);
   doc.text('Thank you for your business!', 105, 285, { align: 'center' });
 
-  // Add watermark if invoice is paid
+  // Watermark kalau dah bayar
   if (invoice.status === 'paid' && receipt) {
     addPaidWatermark(doc, 'PAID', new Date(receipt.paidDate));
   }
@@ -217,11 +219,9 @@ export async function generateReceiptPDF(
   const currency = settings.currency || 'MYR';
 
   // ===== HEADER SECTION =====
-  // Brown header background
-  doc.setFillColor(162, 123, 92); // mate-brown
+  doc.setFillColor(162, 123, 92);
   doc.rect(0, 0, 210, 50, 'F');
 
-  // Logo and business name in header
   let logoX = 15;
   if (settings.logo) {
     try {
@@ -232,7 +232,6 @@ export async function generateReceiptPDF(
     }
   }
 
-  // Business details in white text in header
   doc.setTextColor(255, 255, 255);
   doc.setFont('helvetica', 'bold');
   doc.setFontSize(16);
@@ -246,13 +245,12 @@ export async function generateReceiptPDF(
   doc.setFontSize(8);
   doc.text(`Tel: ${settings.phone} | Email: ${settings.email}`, logoX, 40);
 
-  // Right side - OFFICIAL RECEIPT title
   doc.setFontSize(18);
   doc.setFont('helvetica', 'bold');
   doc.text('OFFICIAL RECEIPT', 165, 25, { align: 'right' });
 
   // ===== RECEIPT INFO SECTION =====
-  doc.setTextColor(44, 57, 48); // Dark color
+  doc.setTextColor(44, 57, 48);
   doc.setFont('helvetica', 'normal');
   doc.setFontSize(10);
 
@@ -285,7 +283,7 @@ export async function generateReceiptPDF(
 
   // ===== AMOUNT BOX =====
   const amountBoxY = 115;
-  doc.setFillColor(220, 215, 201); // mate-cream
+  doc.setFillColor(220, 215, 201);
   doc.rect(20, amountBoxY, 170, 45, 'F');
 
   doc.setTextColor(44, 57, 48);
